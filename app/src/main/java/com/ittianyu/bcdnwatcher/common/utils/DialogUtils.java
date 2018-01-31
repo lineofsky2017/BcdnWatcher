@@ -1,9 +1,9 @@
 package com.ittianyu.bcdnwatcher.common.utils;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 
 import com.ittianyu.bcdnwatcher.R;
 import com.ittianyu.bcdnwatcher.common.view.LoadingDialog;

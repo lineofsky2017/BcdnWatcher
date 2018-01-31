@@ -24,5 +24,6 @@
     <string name="income">收益:</string>
     <string name="tips_open_alipay_error">打开支付宝失败，请手动打开并领取红包</string>
     <string name="tips_update_title">发现新版本，是否要更新</string>
+    <string name="tips_download_success">下载完成</string>
 
 </resources>

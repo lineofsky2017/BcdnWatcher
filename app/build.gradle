@@ -85,6 +85,8 @@ dependencies {
 
     // rv
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'// recycler adapter
-
+    // loading dialog ui
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
+    // permission
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'// rxpermisssion
 }

@@ -1,5 +1,6 @@
 package com.ittianyu.bcdnwatcher;
 
+import android.Manifest;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -19,9 +20,12 @@ import com.ittianyu.bcdnwatcher.features.me.MeFragment;
 import com.ittianyu.bcdnwatcher.features.watcher.WatcherFragment;
 import com.ittianyu.bcdnwatcher.features.wool.WoolFragment;
 import com.orhanobut.logger.Logger;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,10 +40,26 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_main);
         bind = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-
+        initPermission();
         initView();
         initData();
         initEvent();
+    }
+
+    private void initPermission() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean granted) throws Exception {
+                        Logger.d(granted);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Logger.e(throwable, throwable.getMessage());
+                    }
+                });
     }
 
     private void initView() {
@@ -88,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 Logger.d(version);
                 versionLd.removeObservers(MainActivity.this);
                 if (version.getLastVersion() > BuildConfig.VERSION_CODE && !TextUtils.isEmpty(version.getUrl())) {
-                    UpdateUtils.showUpdateDialog(getApplicationContext(), getString(R.string.tips_update_title),
+                    UpdateUtils.showUpdateDialog(MainActivity.this, getString(R.string.tips_update_title),
                             version.getContent(), version.getUrl());
                 }
             }
