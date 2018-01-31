@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import com.ittianyu.bcdnwatcher.common.repository.AccountRepository;
-import com.ittianyu.bcdnwatcher.common.repository.UserRepository;
 import com.ittianyu.bcdnwatcher.common.repository.local.db.DBHelper;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -55,8 +53,6 @@ public class MainApplication extends Application {
 
     private void initRepository() {
         DBHelper.getInstance().init(context);
-        UserRepository.getInstance().init(context);
-        AccountRepository.getInstance().init(context);
     }
 
     public static Context getContext() {

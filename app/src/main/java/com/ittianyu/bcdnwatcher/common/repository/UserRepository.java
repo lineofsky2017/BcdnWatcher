@@ -1,7 +1,6 @@
 package com.ittianyu.bcdnwatcher.common.repository;
 
 import android.arch.lifecycle.LiveData;
-import android.content.Context;
 
 import com.ittianyu.bcdnwatcher.common.bean.IncomeBean;
 import com.ittianyu.bcdnwatcher.common.bean.IndexBean;
@@ -29,15 +28,7 @@ public class UserRepository {
         return instance;
     }
 
-
-    private Context context;
-
     private UserDataSource userRds = RemoteUserDataSource.getInstance();
-
-
-    public void init(Context context) {
-        this.context = context.getApplicationContext();
-    }
 
     public LiveData<Lcee<UserBean>> login(String phone, String password, String areaCode) {
         return LiveDataObservableAdapter.fromObservableLcee(userRds.login(phone, password, areaCode));

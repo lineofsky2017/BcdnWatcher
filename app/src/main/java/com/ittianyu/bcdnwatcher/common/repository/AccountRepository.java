@@ -1,7 +1,6 @@
 package com.ittianyu.bcdnwatcher.common.repository;
 
 import android.arch.lifecycle.LiveData;
-import android.content.Context;
 
 import com.ittianyu.bcdnwatcher.common.bean.AccountBean;
 import com.ittianyu.bcdnwatcher.common.bean.Lcee;
@@ -26,15 +25,7 @@ public class AccountRepository {
     }
 
 
-    private Context context;
-
     private AccountDataSource accountLds = LocalAccountDataSource.getInstance();
-
-
-    public void init(Context context) {
-        this.context = context.getApplicationContext();
-    }
-
 
     public LiveData<Lcee<Long>> addOrUpdate(AccountBean account) {
         return LiveDataObservableAdapter.fromObservableLcee(accountLds.addOrUpdate(account));
