@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Bcdn监控</string>
+
+    <string name="home">首页</string>
+    <string name="me">我的</string>
+    <string name="wool">羊毛</string>
+
+    <string name="tips_network_error">网络错误，点击重试</string>
+    <string name="tips_network_empty">没有数据，点击重新加载</string>
+    <string name="tips_refresh_error">刷新失败</string>
+    <string name="yesterday_income">昨日收益:</string>
+    <string name="total_income">总收益:</string>
+    <string name="online">在线</string>
+    <string name="offline">离线</string>
+    <string name="use_md5_password">使用 MD5 密码</string>
+    <string name="ok">确定</string>
+    <string name="add_account">添加帐号</string>
+    <string name="tips_add_account_error">添加账号失败</string>
+    <string name="tips_add_account_success">添加成功</string>
+    <string name="tips_delete_account_success">删除成功</string>
+    <string name="tips_delete_account_error">删除失败</string>
+    <string name="income_history">收入历史</string>
+    <string name="income">收益:</string>
+    <string name="tips_open_alipay_error">打开支付宝失败，请手动打开并领取红包</string>
+
+</resources>

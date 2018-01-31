@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_music"
+        android:checked="true"
+        android:icon="@drawable/ic_nav_home"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/menu_backup"
+        android:icon="@drawable/ic_nav_wool"
+        android:title="@string/wool" />
+
+    <item
+        android:id="@+id/menu_friends"
+        android:icon="@drawable/ic_nav_mine"
+        android:title="@string/me" />
+
+</menu>
