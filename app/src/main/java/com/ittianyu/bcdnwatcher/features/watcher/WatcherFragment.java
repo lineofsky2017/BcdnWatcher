@@ -45,6 +45,7 @@ import java.util.List;
  */
 
 public class WatcherFragment extends LceeFragment {
+    private static final int REQ_ADD_ACCOUNT = 1;
 
     private FragmentWatcherBinding bind;
     private WatcherViewModel watcherViewModel;
@@ -64,11 +65,7 @@ public class WatcherFragment extends LceeFragment {
         initView(view);
         initData();
         initEvent();
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
         reload();
     }
 
@@ -128,7 +125,7 @@ public class WatcherFragment extends LceeFragment {
         bind.fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), AddAccountActivity.class));
+                startActivityForResult(new Intent(getContext(), AddAccountActivity.class), REQ_ADD_ACCOUNT);
             }
         });
 
@@ -169,10 +166,18 @@ public class WatcherFragment extends LceeFragment {
 
     @Override
     public void reload() {
+        if (watcherAdapter.getData().size() > 0) {
+            setListStatus(ListStatus.Refreshing);
+        } else {
+            setListStatus(ListStatus.Content);
+        }
+//        Logger.d("reload list status:" + getListStatus());
         watcherViewModel.reload();
     }
 
     private void updateView(Lcee<List<WatcherItemBean>> lcee) {
+        if (null == lcee)
+            return;
         Logger.d(lcee);
         setStatus(lcee.status);
         switch (lcee.status) {

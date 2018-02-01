@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
-                        Logger.d(granted);
+//                        Logger.d(granted);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
