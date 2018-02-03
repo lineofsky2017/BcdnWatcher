@@ -14,7 +14,7 @@ import com.ittianyu.bcdnwatcher.databinding.ItemWatcherMinerBinding;
 import java.util.List;
 
 /**
- * Created by 86839 on 2018/1/28.
+ * Created by yu on 2018/1/28.
  */
 
 public class WatcherAdapter extends BaseItemDraggableAdapter<WatcherItemBean, BaseViewHolder> {
@@ -37,6 +37,7 @@ public class WatcherAdapter extends BaseItemDraggableAdapter<WatcherItemBean, Ba
         helper.addOnClickListener(R.id.btn_booking_s);
         helper.addOnClickListener(R.id.btn_booking_w);
         helper.addOnClickListener(R.id.btn_draw_money);
+        helper.addOnClickListener(R.id.btn_bind_s);
 
         // 一个帐号可能有多个码，动态生成对应的 view
         ViewGroup miners = helper.getView(R.id.v_miners);

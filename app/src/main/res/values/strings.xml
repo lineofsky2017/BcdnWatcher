@@ -38,5 +38,6 @@
     <string name="booking_w">w码预约</string>
     <string name="booking_s">s码预约</string>
     <string name="draw_money">提币</string>
+    <string name="bind_s">绑定S码</string>
 
 </resources>

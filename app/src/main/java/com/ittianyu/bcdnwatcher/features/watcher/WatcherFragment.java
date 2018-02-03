@@ -1,5 +1,6 @@
 package com.ittianyu.bcdnwatcher.features.watcher;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
@@ -99,12 +100,7 @@ public class WatcherFragment extends LceeFragment {
 
     private void initData() {
         watcherViewModel = ViewModelProviders.of(this).get(WatcherViewModel.class);
-        watcherViewModel.getItems().observe(this, new Observer<Lcee<List<WatcherItemBean>>>() {
-            @Override
-            public void onChanged(@Nullable Lcee<List<WatcherItemBean>> data) {
-                updateView(data);
-            }
-        });
+//        items = watcherViewModel.getItems();
     }
 
     private void initEvent() {
@@ -158,7 +154,7 @@ public class WatcherFragment extends LceeFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getContext(), IncomeHistoryActivity.class);
                 WatcherItemBean bean = watcherAdapter.getData().get(position);
-                intent.putExtra(IncomeHistoryActivity.EXTRA_INCOME_HISTORY, (ArrayList)bean.getIncomeHistory());
+                intent.putExtra(IncomeHistoryActivity.EXTRA_INCOME_HISTORY, (ArrayList) bean.getIncomeHistory());
                 startActivity(intent);
             }
         });
@@ -179,6 +175,10 @@ public class WatcherFragment extends LceeFragment {
 
                         break;
                     }
+                    case R.id.btn_bind_s: {
+
+                        break;
+                    }
 
                 }
             }
@@ -193,8 +193,16 @@ public class WatcherFragment extends LceeFragment {
         } else {
             setListStatus(ListStatus.Content);
         }
-//        Logger.d("reload list status:" + getListStatus());
-        watcherViewModel.reload();
+        Logger.d("reload list status:" + getListStatus());
+        final LiveData<Lcee<List<WatcherItemBean>>> items = watcherViewModel.getItems();
+        items.observe(this, new Observer<Lcee<List<WatcherItemBean>>>() {
+            @Override
+            public void onChanged(@Nullable Lcee<List<WatcherItemBean>> data) {
+                if (data == null || data.status != Status.Loading)
+                    items.removeObservers(WatcherFragment.this);
+                updateView(data);
+            }
+        });
     }
 
     private void updateView(Lcee<List<WatcherItemBean>> lcee) {
@@ -286,7 +294,7 @@ public class WatcherFragment extends LceeFragment {
                 break;
             }
             case Refreshing: {// show refreshing view
-                // do nothing here
+                bind.srl.setRefreshing(true);
                 break;
             }
             default: {
@@ -342,4 +350,11 @@ public class WatcherFragment extends LceeFragment {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_ADD_ACCOUNT && resultCode == Activity.RESULT_OK) {
+            reload();
+        }
+    }
 }
