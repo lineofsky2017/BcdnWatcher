@@ -14,7 +14,7 @@ import io.reactivex.Observable;
  * Created by 86839 on 2017/10/6.
  */
 
-public interface UserDataSource {
+public interface BcdnDataSource {
     Observable<UserBean> login(String phone, String password, String areaCode);
 
     Observable<IndexBean> queryTotalIncome(String phone, String token);

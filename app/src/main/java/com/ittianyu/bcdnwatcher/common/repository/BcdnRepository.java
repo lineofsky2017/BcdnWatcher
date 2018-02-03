@@ -9,7 +9,7 @@ import com.ittianyu.bcdnwatcher.common.bean.MinerBean;
 import com.ittianyu.bcdnwatcher.common.bean.UserBean;
 import com.ittianyu.bcdnwatcher.common.bean.WatcherItemBean;
 import com.ittianyu.bcdnwatcher.common.livedata.LiveDataObservableAdapter;
-import com.ittianyu.bcdnwatcher.common.repository.remote.RemoteUserDataSource;
+import com.ittianyu.bcdnwatcher.common.repository.remote.RemoteBcdnDataSource;
 
 import java.util.List;
 
@@ -18,17 +18,17 @@ import java.util.List;
  * Created by 86839 on 2017/10/6.
  */
 
-public class UserRepository {
-    private static final UserRepository instance = new UserRepository();
+public class BcdnRepository {
+    private static final BcdnRepository instance = new BcdnRepository();
 
-    private UserRepository() {
+    private BcdnRepository() {
     }
 
-    public static UserRepository getInstance() {
+    public static BcdnRepository getInstance() {
         return instance;
     }
 
-    private UserDataSource userRds = RemoteUserDataSource.getInstance();
+    private BcdnDataSource userRds = RemoteBcdnDataSource.getInstance();
 
     public LiveData<Lcee<UserBean>> login(String phone, String password, String areaCode) {
         return LiveDataObservableAdapter.fromObservableLcee(userRds.login(phone, password, areaCode));

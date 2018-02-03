@@ -7,7 +7,7 @@ import com.ittianyu.bcdnwatcher.common.bean.MinerBean;
 import com.ittianyu.bcdnwatcher.common.bean.UserBean;
 import com.ittianyu.bcdnwatcher.common.bean.WatcherItemBean;
 import com.ittianyu.bcdnwatcher.common.repository.AccountDataSource;
-import com.ittianyu.bcdnwatcher.common.repository.UserDataSource;
+import com.ittianyu.bcdnwatcher.common.repository.BcdnDataSource;
 import com.ittianyu.bcdnwatcher.common.repository.local.LocalAccountDataSource;
 import com.ittianyu.bcdnwatcher.common.utils.CollectionUtils;
 import com.ittianyu.bcdnwatcher.common.utils.RxUtils;
@@ -24,41 +24,41 @@ import io.reactivex.Observable;
  * Created by yu on 2018/1/27.
  */
 
-public class RemoteUserDataSource implements UserDataSource {
-    private static final RemoteUserDataSource instance = new RemoteUserDataSource();
+public class RemoteBcdnDataSource implements BcdnDataSource {
+    private static final RemoteBcdnDataSource instance = new RemoteBcdnDataSource();
 
-    private RemoteUserDataSource() {
+    private RemoteBcdnDataSource() {
     }
 
-    public static RemoteUserDataSource getInstance() {
+    public static RemoteBcdnDataSource getInstance() {
         return instance;
     }
 
 
-    private UserApi userApi = RetrofitFactory.getInstance().create(UserApi.class);
+    private BcdnApi bcdnApi = RetrofitFactory.getInstance().create(BcdnApi.class);
     private AccountDataSource accountLds = LocalAccountDataSource.getInstance();
 
     @Override
     public Observable<UserBean> login(String phone, String password, String areaCode) {
-        return userApi.login(phone, password, areaCode)
+        return bcdnApi.login(phone, password, areaCode)
                         .compose(RxUtils.<UserBean>netScheduler());
     }
 
     @Override
     public Observable<IndexBean> queryTotalIncome(String phone, String token) {
-        return userApi.queryTotalIncome(phone, token)
+        return bcdnApi.queryTotalIncome(phone, token)
                         .compose(RxUtils.<IndexBean>netScheduler());
     }
 
     @Override
     public Observable<IncomeBean> queryIncomeHistory(String phone, String token) {
-        return userApi.queryIncomeHistory(phone, token)
+        return bcdnApi.queryIncomeHistory(phone, token)
                         .compose(RxUtils.<IncomeBean>netScheduler());
     }
 
     @Override
     public Observable<MinerBean> queryMiners(String phone, String areaCode, String token) {
-        return userApi.queryMiners(phone, areaCode, token)
+        return bcdnApi.queryMiners(phone, areaCode, token)
                         .compose(RxUtils.<MinerBean>netScheduler());
     }
 
