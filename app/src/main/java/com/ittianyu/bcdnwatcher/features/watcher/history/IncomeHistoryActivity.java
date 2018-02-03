@@ -14,6 +14,7 @@ import com.ittianyu.bcdnwatcher.common.bean.IncomeBean;
 import com.ittianyu.bcdnwatcher.databinding.ActivityIncomeHistoryBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by yu on 2018/1/30.
@@ -51,6 +52,7 @@ public class IncomeHistoryActivity extends AppCompatActivity {
         ArrayList<IncomeBean.DataBean.HistoryBean> history = (ArrayList<IncomeBean.DataBean.HistoryBean>) getIntent().getSerializableExtra(EXTRA_INCOME_HISTORY);
         if (null == history)
             return;
+        Collections.reverse(history);
         incomeHistoryAdapter.setNewData(history);
     }
 
