@@ -1,8 +1,5 @@
 package com.ittianyu.bcdnwatcher.features.wool;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -16,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ittianyu.bcdnwatcher.R;
+import com.ittianyu.bcdnwatcher.common.utils.ClipboardUtils;
 import com.ittianyu.bcdnwatcher.databinding.FragmentWoolBinding;
 
 /**
@@ -48,10 +46,7 @@ public class WoolFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // 复制红包码
-                ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                if (null == cm)
-                    return;
-                cm.setPrimaryClip(ClipData.newPlainText("code", "EEP7Kx93ID"));
+                ClipboardUtils.copyText(getContext(), "code", "EEP7Kx93ID");
 
                 // 打开支付宝
                 try {

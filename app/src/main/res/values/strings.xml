@@ -25,5 +25,18 @@
     <string name="tips_open_alipay_error">打开支付宝失败，请手动打开并领取红包</string>
     <string name="tips_update_title">发现新版本，是否要更新</string>
     <string name="tips_download_success">下载完成</string>
+    <string name="dai_gua">代挂</string>
+    <string name="coming_soon">敬请期待</string>
+    <string name="tips">提示</string>
+    <string name="tips_dai_gua">价格：5元/天\n承诺：挂满一天低于正常收益30%退款,含 bcdn官方故障\n\n联系QQ 1125316526 或 微信 ittianyu\n(已复制qq号，打开qq添加好友即可)\n\n自助代挂系统开发中，敬请期待</string>
+    <string name="miner_install">Linux 矿机安装教程</string>
+    <string name="refresh">刷新</string>
+    <string name="open_in_browser">浏览器中打开</string>
+    <string name="about_us">关于我们</string>
+    <string name="tips_about_us">© 2018 天宇工作室.版权所有\n\t\t\twww.ittianyu.com</string>
+    <string name="open_source">开源地址</string>
+    <string name="booking_w">w码预约</string>
+    <string name="booking_s">s码预约</string>
+    <string name="draw_money">提币</string>
 
 </resources>

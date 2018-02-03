@@ -33,6 +33,11 @@ public class WatcherAdapter extends BaseItemDraggableAdapter<WatcherItemBean, Ba
         helper.setText(R.id.tv_yesterday_income, mContext.getString(R.string.yesterday_income) + item.getYesterdayIncome());
         helper.setText(R.id.tv_total_income, mContext.getString(R.string.total_income) + item.getTotalIncome());
 
+        // 按钮事件
+        helper.addOnClickListener(R.id.btn_booking_s);
+        helper.addOnClickListener(R.id.btn_booking_w);
+        helper.addOnClickListener(R.id.btn_draw_money);
+
         // 一个帐号可能有多个码，动态生成对应的 view
         ViewGroup miners = helper.getView(R.id.v_miners);
         miners.removeAllViews();

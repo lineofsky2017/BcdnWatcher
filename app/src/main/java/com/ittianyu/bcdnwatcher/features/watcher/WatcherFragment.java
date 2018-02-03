@@ -152,6 +152,7 @@ public class WatcherFragment extends LceeFragment {
             }
         });
 
+        // list item event
         watcherAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -159,6 +160,27 @@ public class WatcherFragment extends LceeFragment {
                 WatcherItemBean bean = watcherAdapter.getData().get(position);
                 intent.putExtra(IncomeHistoryActivity.EXTRA_INCOME_HISTORY, (ArrayList)bean.getIncomeHistory());
                 startActivity(intent);
+            }
+        });
+        // item button event
+        watcherAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.btn_booking_s: {
+
+                        break;
+                    }
+                    case R.id.btn_booking_w: {
+
+                        break;
+                    }
+                    case R.id.btn_draw_money: {
+
+                        break;
+                    }
+
+                }
             }
         });
     }

@@ -36,4 +36,16 @@ public class DialogUtils {
         return dialog;
     }
 
+    public static Dialog showInfoDialog(Context context, String title, String content) {
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(content)
+                .setCancelable(true)
+                .setPositiveButton(R.string.ok, null)
+                .create();
+        dialog.show();
+        return dialog;
+    }
+
+
 }

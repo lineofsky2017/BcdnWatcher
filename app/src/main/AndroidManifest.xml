@@ -24,6 +24,7 @@
 
         <activity android:name=".features.addaccount.AddAccountActivity"/>
         <activity android:name=".features.watcher.history.IncomeHistoryActivity"/>
+        <activity android:name=".features.web.WebActivity"/>
     </application>
 
 </manifest>
