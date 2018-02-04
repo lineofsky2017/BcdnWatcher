@@ -11,3 +11,7 @@
 
 #### Centos ####
 
+在 shell 命令行中执行，根据提示输入挖矿码，然后回车即可
+```
+curl -o-  https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerInstall/install_centos.sh | bash
+```

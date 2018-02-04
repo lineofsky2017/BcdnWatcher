@@ -16,7 +16,7 @@ cd ~/download
 curl -O https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/minerInstall/M_BerryMiner_ubuntu_v1_0.tar.gz
 
 # 解压
-tar -zxvf ~/opt/download/M_BerryMiner_ubuntu_v1_0.tar.gz -C ~/opt
+tar -zxvf ~/download/M_BerryMiner_ubuntu_v1_0.tar.gz -C ~/opt
 
 # 添加执行权限
 cd ~/opt/M_BerryMiner_ubuntu_v1_0/server

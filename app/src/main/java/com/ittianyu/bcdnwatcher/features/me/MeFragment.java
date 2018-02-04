@@ -22,7 +22,7 @@ import com.ittianyu.bcdnwatcher.features.web.WebActivity;
 
 public class MeFragment extends Fragment {
     private static final String OPEN_SOURCE_URL = "https://github.com/ItTianYuStudio/BcdnWatcher";
-    private static final String MINER_INSTALL_URL = "https://github.com/ItTianYuStudio/BcdnWatcher";
+    private static final String MINER_INSTALL_URL = "https://github.com/ItTianYuStudio/BcdnWatcher/tree/master/minerInstall";
 
     private FragmentMeBinding bind;
 
