@@ -34,6 +34,8 @@ curl -o- https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/min
 echo "这里替换成你的挖矿码" > ~/opt/M_BerryMiner_ubuntu_v1_0/server/conf/code.txt 
 ```
 
+挖矿码输入后（守护进程会自动重启矿机，无需手动做任何操作），等待 1 分钟左右，检查是否已经上线成功。
+
 
 ## 代安装矿机服务 ##
 
@@ -44,3 +46,4 @@ echo "这里替换成你的挖矿码" > ~/opt/M_BerryMiner_ubuntu_v1_0/server/co
 
 - 如果是云服务器，直接把 帐号密码发我，我连接后帮忙安装。
 - 如果是虚拟机，请下载好 TeamViewer, [点这里下载](https://download.teamviewer.com/download/TeamViewer_Setup.exe)。 运行后，把远程连接的 id 和 密码发我，我代为远程操作。
+
