@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# 容错判断
+if [$1 == ""]; then
+	echo "请输入挖矿码"
+	exit;
+fi
+
 # 创建目录
 if [ ! -d "~/download" ]; then
   mkdir -p ~/download
@@ -35,8 +41,8 @@ chmod +x /etc/rc.d/rc.local
 echo "~/opt/BDCN_sh/auto_startup.sh" >> /etc/rc.d/rc.local
 
 # 输入挖矿码
-read -p "请输入挖矿码(Please input your miner code):" code
-echo "$code" > ~/opt/M_BerryMiner_ubuntu_v1_0/server/conf/code.txt 
+#read -p "请输入挖矿码(Please input your miner code):" code
+echo "$1" > ~/opt/M_BerryMiner_ubuntu_v1_0/server/conf/code.txt 
 
 # 启动守护程序
 cd ~/opt/BDCN_sh
