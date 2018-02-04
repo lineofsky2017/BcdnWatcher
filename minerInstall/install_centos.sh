@@ -40,6 +40,6 @@ echo "$code" > ~/opt/M_BerryMiner_ubuntu_v1_0/server/conf/code.txt
 
 # 启动守护程序
 cd ~/opt/BDCN_sh
-./daemon.sh
+nohup ./daemon.sh &
 
 echo "安装成功 (install success)"
