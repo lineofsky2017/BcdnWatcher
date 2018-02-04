@@ -28,6 +28,7 @@
         <activity android:name=".features.watcher.bindeth.BindEthActivity"/>
         <activity android:name=".features.watcher.binds.BindSActivity"/>
         <activity android:name=".features.watcher.withdraw.WithdrawActivity"/>
+        <activity android:name=".features.watcher.withdrawhistory.WithdrawHistoryActivity" />
     </application>
 
 </manifest>

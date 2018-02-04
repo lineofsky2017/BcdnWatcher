@@ -63,5 +63,8 @@
     <string name="tips_field_empty">不能为空</string>
     <string name="tips_withdraw_success">提币成功，等待审核</string>
     <string name="withdraw_history">提现记录</string>
+    <string name="withdraw_succsss">提现成功</string>
+    <string name="withdraw_need_confirm">审核中</string>
+    <string name="withdraw_need_error">审核中</string>
 
 </resources>

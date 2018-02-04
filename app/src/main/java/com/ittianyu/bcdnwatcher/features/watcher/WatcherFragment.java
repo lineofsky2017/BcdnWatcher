@@ -44,6 +44,7 @@ import com.ittianyu.bcdnwatcher.features.watcher.bindeth.BindEthActivity;
 import com.ittianyu.bcdnwatcher.features.watcher.binds.BindSActivity;
 import com.ittianyu.bcdnwatcher.features.watcher.history.IncomeHistoryActivity;
 import com.ittianyu.bcdnwatcher.features.watcher.withdraw.WithdrawActivity;
+import com.ittianyu.bcdnwatcher.features.watcher.withdrawhistory.WithdrawHistoryActivity;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -182,7 +183,9 @@ public class WatcherFragment extends LceeFragment {
                         break;
                     }
                     case R.id.btn_withdraw_history: {
-
+                        Intent intent = new Intent(getContext(), WithdrawHistoryActivity.class);
+                        intent.putExtra(BindSActivity.EXTRA_ITEM, item);
+                        startActivity(intent);
                         break;
                     }
                     case R.id.btn_draw_money: {
@@ -221,8 +224,10 @@ public class WatcherFragment extends LceeFragment {
     }
 
     private void updateView(Lcee<List<WatcherItemBean>> lcee) {
-        if (null == lcee)
+        if (null == lcee) {
+            updateEmptyView();
             return;
+        }
         Logger.d(lcee);
         setStatus(lcee.status);
         switch (lcee.status) {

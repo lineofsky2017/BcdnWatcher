@@ -63,7 +63,16 @@ public class WithdrawHistoryBean implements Serializable {
             this.history = history;
         }
 
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "history=" + history +
+                    '}';
+        }
+
         public static class HistoryBean {
+            public static final int STATUS_NEED_CONFIRM = 1;
+            public static final int STATUS_SUCCESS = 2;
             /**
              * date : 1516256910
              * amount : 690.8909912109375
@@ -97,13 +106,16 @@ public class WithdrawHistoryBean implements Serializable {
             public void setStatus(int status) {
                 this.status = status;
             }
+
+            @Override
+            public String toString() {
+                return "HistoryBean{" +
+                        "date='" + date + '\'' +
+                        ", amount=" + amount +
+                        ", status=" + status +
+                        '}';
+            }
         }
 
-        @Override
-        public String toString() {
-            return "DataBean{" +
-                    "history=" + history +
-                    '}';
-        }
     }
 }
