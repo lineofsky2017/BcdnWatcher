@@ -47,3 +47,8 @@ echo "这里替换成你的挖矿码" > ~/opt/M_BerryMiner_ubuntu_v1_0/server/co
 - 如果是云服务器，直接把 帐号密码发我，我连接后帮忙安装。
 - 如果是虚拟机，请下载好 TeamViewer, [点这里下载](https://download.teamviewer.com/download/TeamViewer_Setup.exe)。 运行后，把远程连接的 id 和 密码发我，我代为远程操作。
 
+
+#### 联系方式 ####
+- qq 1125316526 
+- 微信 ittianyu
+

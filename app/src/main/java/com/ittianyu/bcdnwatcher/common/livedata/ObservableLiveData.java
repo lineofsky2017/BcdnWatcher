@@ -47,7 +47,8 @@ class ObservableLiveData<T> extends LiveData<T> {
                     mDisposableRef = null;
                 }
                 // Errors should be handled upstream, so propagate as a crash.
-                throw new RuntimeException(t);
+//                throw new RuntimeException(t);
+                postValue(null);
             }
 
             @Override

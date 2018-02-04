@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
         versionLd.observe(this, new Observer<VersionBean>() {
             @Override
             public void onChanged(@Nullable VersionBean version) {
+                if (null == version)
+                    return;
                 Logger.d(version);
                 versionLd.removeObservers(MainActivity.this);
                 if (version.getLastVersion() > BuildConfig.VERSION_CODE && !TextUtils.isEmpty(version.getUrl())) {
