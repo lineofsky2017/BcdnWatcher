@@ -13,7 +13,8 @@ public class RetrofitFactory {
     private static OkHttpClient client;
     private static Retrofit retrofit;
 
-    private static final String HOST = "http://47.52.207.212:9090";
+//    private static final String HOST = "http://47.52.207.212:9090";
+    private static final String HOST = "http://app.blockcdn.org:9090";
 
     static {
         client = new OkHttpClient.Builder()
