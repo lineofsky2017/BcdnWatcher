@@ -34,6 +34,10 @@ https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/apk/bcdn_miner_v1.0.0.a
 ![](./apk/bcdn_miner_v1.0.0.png)
 
 
+#### 截图 ####
+
+![](./screenshot/index.png)
+
 ## 项目详情 ##
 
 #### 架构 ####
