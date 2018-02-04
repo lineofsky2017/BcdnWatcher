@@ -9,11 +9,11 @@ if [ ! -d "~/opt/BDCN_sh" ]; then
 fi
 
 # 依赖
-yum install -y tar 
+yum install -y tar wget
 
 # 下载
 cd ~/download
-curl -O https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/minerInstall/M_BerryMiner_ubuntu_v1_0.tar.gz
+wget https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/minerInstall/M_BerryMiner_ubuntu_v1_0.tar.gz
 
 # 解压
 tar -zxvf ~/download/M_BerryMiner_ubuntu_v1_0.tar.gz -C ~/opt
@@ -25,7 +25,7 @@ chmod 755 ./bin/bcdn_server
 
 # 守护程序
 cd ~/opt/BDCN_sh
-curl -O https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerInstall/daemon.sh
+wget https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerInstall/daemon.sh
 chmod +x daemon.sh
 
 # 开机自动启动脚本
