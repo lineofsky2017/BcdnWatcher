@@ -16,6 +16,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,14 +29,21 @@ import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.ittianyu.bcdnwatcher.R;
 import com.ittianyu.bcdnwatcher.common.base.LceeFragment;
 import com.ittianyu.bcdnwatcher.common.bean.AccountBean;
+import com.ittianyu.bcdnwatcher.common.bean.BcdnCommonBean;
+import com.ittianyu.bcdnwatcher.common.bean.BookingAgainBean;
+import com.ittianyu.bcdnwatcher.common.bean.BookingStatusBean;
 import com.ittianyu.bcdnwatcher.common.bean.Lcee;
 import com.ittianyu.bcdnwatcher.common.bean.ListStatus;
 import com.ittianyu.bcdnwatcher.common.bean.Status;
 import com.ittianyu.bcdnwatcher.common.bean.WatcherItemBean;
 import com.ittianyu.bcdnwatcher.common.utils.DialogUtils;
+import com.ittianyu.bcdnwatcher.common.utils.LceeUtils;
 import com.ittianyu.bcdnwatcher.databinding.FragmentWatcherBinding;
 import com.ittianyu.bcdnwatcher.features.addaccount.AddAccountActivity;
+import com.ittianyu.bcdnwatcher.features.watcher.bindeth.BindEthActivity;
+import com.ittianyu.bcdnwatcher.features.watcher.binds.BindSActivity;
 import com.ittianyu.bcdnwatcher.features.watcher.history.IncomeHistoryActivity;
+import com.ittianyu.bcdnwatcher.features.watcher.withdraw.WithdrawActivity;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -47,6 +55,7 @@ import java.util.List;
 
 public class WatcherFragment extends LceeFragment {
     private static final int REQ_ADD_ACCOUNT = 1;
+    private static final int REQ_BIND_S = 2;
 
     private FragmentWatcherBinding bind;
     private WatcherViewModel watcherViewModel;
@@ -162,29 +171,36 @@ public class WatcherFragment extends LceeFragment {
         watcherAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                WatcherItemBean item = watcherAdapter.getData().get(position);
                 switch (view.getId()) {
-                    case R.id.btn_booking_s: {
-
+//                    case R.id.btn_booking_s: {
+//                        Toast.makeText(getContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
+//                        break;
+//                    }
+                    case R.id.btn_booking_w: {
+                        onBookingW(item);
                         break;
                     }
-                    case R.id.btn_booking_w: {
+                    case R.id.btn_withdraw_history: {
 
                         break;
                     }
                     case R.id.btn_draw_money: {
-
+                        Intent intent = new Intent(getContext(), WithdrawActivity.class);
+                        intent.putExtra(BindSActivity.EXTRA_ITEM, item);
+                        startActivity(intent);
                         break;
                     }
                     case R.id.btn_bind_s: {
-
+                        Intent intent = new Intent(getContext(), BindSActivity.class);
+                        intent.putExtra(BindSActivity.EXTRA_ITEM, item);
+                        startActivityForResult(intent, REQ_BIND_S);
                         break;
                     }
-
                 }
             }
         });
     }
-
 
     @Override
     public void reload() {
@@ -198,8 +214,7 @@ public class WatcherFragment extends LceeFragment {
         items.observe(this, new Observer<Lcee<List<WatcherItemBean>>>() {
             @Override
             public void onChanged(@Nullable Lcee<List<WatcherItemBean>> data) {
-                if (data == null || data.status != Status.Loading)
-                    items.removeObservers(WatcherFragment.this);
+                LceeUtils.removeObservers(items, data, WatcherFragment.this);
                 updateView(data);
             }
         });
@@ -313,14 +328,21 @@ public class WatcherFragment extends LceeFragment {
         ldDeleteAccount.observe(this, new Observer<Lcee<Object>>() {
             @Override
             public void onChanged(@Nullable Lcee<Object> lcee) {
-                updateDeleteView(lcee, ldDeleteAccount);
+                LceeUtils.removeObservers(ldDeleteAccount, lcee, WatcherFragment.this);
+                updateDeleteView(lcee);
             }
         });
     }
 
 
-    private void updateDeleteView(Lcee<Object> lcee, LiveData<Lcee<Object>> ldDeleteAccount) {
+    private void updateDeleteView(Lcee<Object> lcee) {
         Logger.d(lcee);
+        if (lcee == null || lcee.status != Status.Loading && loadingDialog != null) {
+            loadingDialog.dismiss();
+            loadingDialog = null;
+        }
+        if (null == lcee)
+            return;
         switch (lcee.status) {
             case Content: {
                 Toast.makeText(getContext(), R.string.tips_delete_account_success, Toast.LENGTH_SHORT).show();
@@ -341,20 +363,128 @@ public class WatcherFragment extends LceeFragment {
                 break;
             }
         }
-
-        if (lcee.status != Status.Loading && loadingDialog != null) {
-            loadingDialog.dismiss();
-            loadingDialog = null;
-            ldDeleteAccount.removeObservers(this);
-        }
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_ADD_ACCOUNT && resultCode == Activity.RESULT_OK) {
+        if (resultCode != Activity.RESULT_OK)
+            return;
+        if (requestCode == REQ_ADD_ACCOUNT || requestCode == REQ_BIND_S) {
             reload();
+        }
+    }
+
+    private void onBookingW(final WatcherItemBean item) {
+        final LiveData<Lcee<BookingStatusBean>> bookingStatusLd = watcherViewModel.queryBookingStatus(item.getPhone(), item.getToken());
+        bookingStatusLd.observe(this, new Observer<Lcee<BookingStatusBean>>() {
+            @Override
+            public void onChanged(@Nullable Lcee<BookingStatusBean> lcee) {
+                LceeUtils.removeObservers(bookingStatusLd, lcee, WatcherFragment.this);
+                updateBookingWQueryView(lcee, item);
+            }
+        });
+    }
+
+    private void updateBookingWQueryView(Lcee<BookingStatusBean> lcee, WatcherItemBean item) {
+        Logger.d(lcee);
+        if (lcee == null || lcee.status != Status.Loading && loadingDialog != null) {
+            loadingDialog.dismiss();
+            loadingDialog = null;
+        }
+        if (null == lcee)
+            return;
+        switch (lcee.status) {
+            case Content: {
+                handleBookingWQueryResult(lcee, item);
+                break;
+            }
+            case Empty:
+            case Error: {
+                Toast.makeText(getContext(), R.string.tips_action_error, Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case Loading: {
+                if (null != loadingDialog)
+                    loadingDialog.dismiss();
+                loadingDialog = DialogUtils.showLoadingDialog(getContext());
+                break;
+            }
+        }
+    }
+
+    private void handleBookingWQueryResult(Lcee<BookingStatusBean> lcee, WatcherItemBean item) {
+        if (lcee.data.getCode() == BcdnCommonBean.CODE_TOKEN_TIMEOUT) {
+            Toast.makeText(getContext(), R.string.tips_token_timeout, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        switch (lcee.data.getData().getType()) {
+            case BookingStatusBean.TYPE_BOOKED: {
+                Toast.makeText(getContext(), R.string.tips_booked, Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case BookingStatusBean.TYPE_SUCCESS: {
+                Toast.makeText(getContext(), R.string.tips_booked_success, Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case BookingStatusBean.TYPE_NO_ETH: {// 跳到绑定 eth 地址
+                Intent intent = new Intent(getContext(), BindEthActivity.class);
+                intent.putExtra(BindEthActivity.EXTRA_ITEM, item);
+                startActivity(intent);
+                break;
+            }
+            case BookingStatusBean.TYPE_FAILED: {// 抽奖失败，重新预约
+                bookingWAgain(item);
+                break;
+            }
+        }
+    }
+
+    private void bookingWAgain(WatcherItemBean item) {
+        final LiveData<Lcee<BookingAgainBean>> bookingAgainLd = watcherViewModel.bookingAgain(item.getPhone(), item.getToken());
+        bookingAgainLd.observe(this, new Observer<Lcee<BookingAgainBean>>() {
+            @Override
+            public void onChanged(@Nullable Lcee<BookingAgainBean> lcee) {
+                LceeUtils.removeObservers(bookingAgainLd, lcee, WatcherFragment.this);
+                updateBookingWAgainView(lcee);
+            }
+        });
+    }
+
+    private void updateBookingWAgainView(Lcee<BookingAgainBean> lcee) {
+        Logger.d(lcee);
+        if (lcee == null || lcee.status != Status.Loading && loadingDialog != null) {
+            loadingDialog.dismiss();
+            loadingDialog = null;
+        }
+        if (null == lcee)
+            return;
+        switch (lcee.status) {
+            case Content: {
+                if (lcee.data.getCode() == BcdnCommonBean.CODE_TOKEN_TIMEOUT) {
+                    Toast.makeText(getContext(), R.string.tips_token_timeout, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                BookingAgainBean.DataBean data = lcee.data.getData();
+                if (data == null || TextUtils.isEmpty(data.getReservationCode())) {
+                    Toast.makeText(getContext(), R.string.tips_booking_again_error, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), R.string.tips_booking_again_success, Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+            case Empty:
+            case Error: {
+                Toast.makeText(getContext(), R.string.tips_action_error, Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case Loading: {
+                if (null != loadingDialog)
+                    loadingDialog.dismiss();
+                loadingDialog = DialogUtils.showLoadingDialog(getContext());
+                break;
+            }
         }
     }
 }

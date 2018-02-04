@@ -7,7 +7,9 @@ import java.io.Serializable;
  */
 
 public class BcdnCommonBean implements Serializable {
+    public static final int CODE_SUCCESS = 0;
     public static final int CODE_BIND_CODE_NOT_EXIST = 2101;
+    public static final int CODE_TOKEN_TIMEOUT = 303;
 
     /**
      * code : 0

@@ -34,7 +34,7 @@ public class WatcherAdapter extends BaseItemDraggableAdapter<WatcherItemBean, Ba
         helper.setText(R.id.tv_total_income, mContext.getString(R.string.total_income) + item.getTotalIncome());
 
         // 按钮事件
-        helper.addOnClickListener(R.id.btn_booking_s);
+        helper.addOnClickListener(R.id.btn_withdraw_history);
         helper.addOnClickListener(R.id.btn_booking_w);
         helper.addOnClickListener(R.id.btn_draw_money);
         helper.addOnClickListener(R.id.btn_bind_s);

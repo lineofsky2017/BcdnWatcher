@@ -4,6 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.ittianyu.bcdnwatcher.common.bean.AccountBean;
+import com.ittianyu.bcdnwatcher.common.bean.BookingAgainBean;
+import com.ittianyu.bcdnwatcher.common.bean.BookingStatusBean;
 import com.ittianyu.bcdnwatcher.common.bean.Lcee;
 import com.ittianyu.bcdnwatcher.common.bean.WatcherItemBean;
 import com.ittianyu.bcdnwatcher.common.repository.AccountRepository;
@@ -25,6 +27,14 @@ public class WatcherViewModel extends ViewModel {
 
     public LiveData<Lcee<Object>> deleteAccount(AccountBean account) {
         return accountRepository.delete(account);
+    }
+
+    public LiveData<Lcee<BookingStatusBean>> queryBookingStatus(String phone, String token) {
+        return bcdnRepository.queryBookingStatus(phone, token);
+    }
+
+    public LiveData<Lcee<BookingAgainBean>> bookingAgain(String phone, String token) {
+        return bcdnRepository.bookingAgain(phone, token);
     }
 
 }

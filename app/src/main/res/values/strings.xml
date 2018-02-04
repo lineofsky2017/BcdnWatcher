@@ -20,6 +20,7 @@
     <string name="tips_add_account_success">添加成功</string>
     <string name="tips_delete_account_success">删除成功</string>
     <string name="tips_delete_account_error">删除失败</string>
+    <string name="tips_action_error">请求失败，请稍后重试</string>
     <string name="income_history">收入历史</string>
     <string name="income">收益:</string>
     <string name="tips_open_alipay_error">打开支付宝失败，请手动打开并领取红包</string>
@@ -28,7 +29,7 @@
     <string name="dai_gua">代挂</string>
     <string name="coming_soon">敬请期待</string>
     <string name="tips">提示</string>
-    <string name="tips_dai_gua">价格：5元/天\n承诺：挂满一天低于正常收益30%退款,含 bcdn官方故障\n\n联系QQ 1125316526 或 微信 ittianyu\n(已复制qq号，打开qq添加好友即可)\n\n自助代挂系统开发中，敬请期待</string>
+    <string name="tips_dai_gua">超级节点  7元/天  1.5ms延迟\n优质节点  5元/天  15ms延迟\n高速节点  4元/天  30ms延迟\n普通节点  3元/天  40-60ms延迟\n低速节点 1元/天 100ms以上延迟\n(延迟越高越容易掉线，推荐优质节点\n延迟是节点与挖矿服务器通信一次的时间)\n\n承诺：挂满一天低于正常收益30%退款，含 bcdn官方故障\n\n联系QQ 1125316526 或 微信 ittianyu\n(已复制qq号，打开qq添加好友即可)\n\n自助代挂系统开发中，敬请期待</string>
     <string name="miner_install">Linux 矿机安装教程</string>
     <string name="refresh">刷新</string>
     <string name="open_in_browser">浏览器中打开</string>
@@ -39,5 +40,28 @@
     <string name="booking_s">s码预约</string>
     <string name="draw_money">提币</string>
     <string name="bind_s">绑定S码</string>
+    <string name="tips_booked">您已经预约过了，请等待开奖</string>
+    <string name="tips_booked_success">您已经成功抽到挖矿码，无法再次预约</string>
+    <string name="tips_booking_again_error">再次预约失败</string>
+    <string name="tips_booking_again_success">再次预约成功</string>
+    <string name="bind_eth">绑定钱包地址</string>
+    <string name="eth_address">eth 地址</string>
+    <string name="gate_io_address">Gate.io 地址</string>
+    <string name="tips_eth_empty">地址不能为空</string>
+    <string name="tips_wrong_eth_address">Eth 地址错误</string>
+    <string name="tips_no_enough_coins">没有足够的Bcdn币</string>
+    <string name="tips_bind_eth_success">绑定成功</string>
+    <string name="tips_token_timeout">Token 过期，请刷新后重试</string>
+    <string name="s_code">请输入S码</string>
+    <string name="tips_code_empty">码不能为空</string>
+    <string name="tips_wrong_code">挖矿码不存在</string>
+    <string name="withdraw_count">提币数量</string>
+    <string name="withdraw_all">全部提取</string>
+    <string name="total_coins">总资产:</string>
+    <string name="get_verify_code">获取验证码</string>
+    <string name="verify_code">验证码</string>
+    <string name="tips_field_empty">不能为空</string>
+    <string name="tips_withdraw_success">提币成功，等待审核</string>
+    <string name="withdraw_history">提现记录</string>
 
 </resources>

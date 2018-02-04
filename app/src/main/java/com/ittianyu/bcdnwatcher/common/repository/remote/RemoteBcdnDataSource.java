@@ -1,11 +1,16 @@
 package com.ittianyu.bcdnwatcher.common.repository.remote;
 
 import com.ittianyu.bcdnwatcher.common.bean.AccountBean;
+import com.ittianyu.bcdnwatcher.common.bean.BcdnCommonBean;
+import com.ittianyu.bcdnwatcher.common.bean.BindEthBean;
+import com.ittianyu.bcdnwatcher.common.bean.BookingAgainBean;
+import com.ittianyu.bcdnwatcher.common.bean.BookingStatusBean;
 import com.ittianyu.bcdnwatcher.common.bean.IncomeBean;
 import com.ittianyu.bcdnwatcher.common.bean.IndexBean;
 import com.ittianyu.bcdnwatcher.common.bean.MinerBean;
 import com.ittianyu.bcdnwatcher.common.bean.UserBean;
 import com.ittianyu.bcdnwatcher.common.bean.WatcherItemBean;
+import com.ittianyu.bcdnwatcher.common.bean.WithdrawHistoryBean;
 import com.ittianyu.bcdnwatcher.common.repository.AccountDataSource;
 import com.ittianyu.bcdnwatcher.common.repository.BcdnDataSource;
 import com.ittianyu.bcdnwatcher.common.repository.local.LocalAccountDataSource;
@@ -67,6 +72,54 @@ public class RemoteBcdnDataSource implements BcdnDataSource {
         return queryWatcherListRx();
     }
 
+    @Override
+    public Observable<BookingStatusBean> queryBookingStatus(String phone, String token) {
+        return bcdnApi.queryBookingStatus(phone, token)
+                .compose(RxUtils.<BookingStatusBean>netScheduler());
+    }
+
+    @Override
+    public Observable<BookingAgainBean> bookingAgain(String phone, String token) {
+        return bcdnApi.bookingAgain(phone, token)
+                .compose(RxUtils.<BookingAgainBean>netScheduler());
+    }
+
+    @Override
+    public Observable<BcdnCommonBean> bindCode(String phone, String token, String code) {
+        return bcdnApi.bindCode(phone, token, code)
+                .compose(RxUtils.<BcdnCommonBean>netScheduler());
+    }
+
+    @Override
+    public Observable<BindEthBean> bindGateIo(String phone, String token, String ethAddress, String type) {
+        return bcdnApi.bindGateIo(phone, token, ethAddress, type)
+                .compose(RxUtils.<BindEthBean>netScheduler());
+    }
+
+    @Override
+    public Observable<BindEthBean> bindEth(String phone, String token, String ethAddress, String type) {
+        return bcdnApi.bindEth(phone, token, ethAddress, type)
+                .compose(RxUtils.<BindEthBean>netScheduler());
+    }
+
+    @Override
+    public Observable<BookingAgainBean> getWithdrawVerifyCode(String phone, String areaCode) {
+        return bcdnApi.getWithdrawVerifyCode(phone, areaCode)
+                .compose(RxUtils.<BookingAgainBean>netScheduler());
+    }
+
+    @Override
+    public Observable<BcdnCommonBean> withdraw(String phone, String token, String amount, String checkCode) {
+        return bcdnApi.withdraw(phone, token, amount, checkCode)
+                .compose(RxUtils.<BcdnCommonBean>netScheduler());
+    }
+
+    @Override
+    public Observable<WithdrawHistoryBean> queryWithdrawHistory(String phone, String token) {
+        return bcdnApi.queryWithdrawHistory(phone, token)
+                .compose(RxUtils.<WithdrawHistoryBean>netScheduler());
+    }
+
     private Observable<List<WatcherItemBean>> queryWatcherListRx() {
         return RxUtils.fromCallable(new Callable<List<WatcherItemBean>>() {
             @Override
@@ -100,15 +153,17 @@ public class RemoteBcdnDataSource implements BcdnDataSource {
 
                         item.setLogin(true);
                         String token = userData.getToken();
+                        item.setToken(token);
 
                         // query miner info
-                        MinerBean miners = queryMiners(phone, areaCode, token).blockingFirst();
-
-                        List<WatcherItemBean.MinerBean> minersList = new ArrayList<>(miners.getData().getCodeList().size());
-                        for (MinerBean.DataBean.CodeListBean code : miners.getData().getCodeList()) {
-                            minersList.add(new WatcherItemBean.MinerBean(code.getCode(), code.getOnlineStatus() == 0));
+                        List<MinerBean.DataBean.CodeListBean> miners = queryMiners(phone, areaCode, token).blockingFirst().getData().getCodeList();
+                        if (null != miners) {
+                            List<WatcherItemBean.MinerBean> minersList = new ArrayList<>(miners.size());
+                            for (MinerBean.DataBean.CodeListBean code : miners) {
+                                minersList.add(new WatcherItemBean.MinerBean(code.getCode(), code.getOnlineStatus() == 0));
+                            }
+                            item.setMiners(minersList);
                         }
-                        item.setMiners(minersList);
 
                         // query income
                         IncomeBean.DataBean income = queryIncomeHistory(phone, token).blockingFirst().getData();

@@ -25,6 +25,9 @@
         <activity android:name=".features.addaccount.AddAccountActivity"/>
         <activity android:name=".features.watcher.history.IncomeHistoryActivity"/>
         <activity android:name=".features.web.WebActivity"/>
+        <activity android:name=".features.watcher.bindeth.BindEthActivity"/>
+        <activity android:name=".features.watcher.binds.BindSActivity"/>
+        <activity android:name=".features.watcher.withdraw.WithdrawActivity"/>
     </application>
 
 </manifest>

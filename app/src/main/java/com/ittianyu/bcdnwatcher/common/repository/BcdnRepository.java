@@ -2,12 +2,17 @@ package com.ittianyu.bcdnwatcher.common.repository;
 
 import android.arch.lifecycle.LiveData;
 
+import com.ittianyu.bcdnwatcher.common.bean.BcdnCommonBean;
+import com.ittianyu.bcdnwatcher.common.bean.BindEthBean;
+import com.ittianyu.bcdnwatcher.common.bean.BookingAgainBean;
+import com.ittianyu.bcdnwatcher.common.bean.BookingStatusBean;
 import com.ittianyu.bcdnwatcher.common.bean.IncomeBean;
 import com.ittianyu.bcdnwatcher.common.bean.IndexBean;
 import com.ittianyu.bcdnwatcher.common.bean.Lcee;
 import com.ittianyu.bcdnwatcher.common.bean.MinerBean;
 import com.ittianyu.bcdnwatcher.common.bean.UserBean;
 import com.ittianyu.bcdnwatcher.common.bean.WatcherItemBean;
+import com.ittianyu.bcdnwatcher.common.bean.WithdrawHistoryBean;
 import com.ittianyu.bcdnwatcher.common.livedata.LiveDataObservableAdapter;
 import com.ittianyu.bcdnwatcher.common.repository.remote.RemoteBcdnDataSource;
 
@@ -28,26 +33,57 @@ public class BcdnRepository {
         return instance;
     }
 
-    private BcdnDataSource userRds = RemoteBcdnDataSource.getInstance();
+    private BcdnDataSource bcdnRds = RemoteBcdnDataSource.getInstance();
 
     public LiveData<Lcee<UserBean>> login(String phone, String password, String areaCode) {
-        return LiveDataObservableAdapter.fromObservableLcee(userRds.login(phone, password, areaCode));
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.login(phone, password, areaCode));
     }
 
     public LiveData<Lcee<IndexBean>> queryTotalIncome(String phone, String token) {
-        return LiveDataObservableAdapter.fromObservableLcee(userRds.queryTotalIncome(phone, token));
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.queryTotalIncome(phone, token));
     }
 
     public LiveData<Lcee<IncomeBean>> queryIncomeHistory(String phone, String token) {
-        return LiveDataObservableAdapter.fromObservableLcee(userRds.queryIncomeHistory(phone, token));
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.queryIncomeHistory(phone, token));
     }
 
     public LiveData<Lcee<MinerBean>> queryMiners(String phone, String areaCode, String token) {
-        return LiveDataObservableAdapter.fromObservableLcee(userRds.queryMiners(phone, areaCode, token));
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.queryMiners(phone, areaCode, token));
     }
 
     public LiveData<Lcee<List<WatcherItemBean>>> queryWatcherList() {
-        return LiveDataObservableAdapter.fromObservableLcee(userRds.queryWatcherList());
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.queryWatcherList());
     }
 
+    public LiveData<Lcee<BookingStatusBean>> queryBookingStatus(String phone, String token) {
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.queryBookingStatus(phone, token));
+    }
+
+    public LiveData<Lcee<BookingAgainBean>> bookingAgain(String phone, String token) {
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.bookingAgain(phone, token));
+    }
+
+    public LiveData<Lcee<BcdnCommonBean>> bindCode(String phone, String token, String code) {
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.bindCode(phone, token, code));
+    }
+
+    public LiveData<Lcee<BindEthBean>> bindGateIo(String phone, String token, String ethAddress) {
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.bindGateIo(phone, token, ethAddress, "checkCoin"));
+    }
+
+    public LiveData<Lcee<BindEthBean>> bindEth(String phone, String token, String ethAddress) {
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.bindEth(phone, token, ethAddress, "checkCoin"));
+    }
+
+    public LiveData<Lcee<BookingAgainBean>> getWithdrawVerifyCode(String phone, String areaCode) {
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.getWithdrawVerifyCode(phone, areaCode));
+    }
+
+    public LiveData<Lcee<BcdnCommonBean>> withdraw(String phone, String token, String amount, String checkCode) {
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.withdraw(phone, token, amount, checkCode));
+    }
+
+    public LiveData<Lcee<WithdrawHistoryBean>> queryWithdrawHistory(String phone, String token) {
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.queryWithdrawHistory(phone, token));
+    }
 }

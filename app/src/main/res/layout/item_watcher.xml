@@ -99,10 +99,15 @@
             android:text="@string/booking_w"
             style="@style/customButton" />
 
-        <Button
+<!--        <Button
             android:id="@+id/btn_booking_s"
             style="@style/customButton"
-            android:text="@string/booking_s" />
+            android:text="@string/booking_s" />-->
+
+        <Button
+            android:id="@+id/btn_withdraw_history"
+            style="@style/customButton"
+            android:text="@string/withdraw_history" />
 
     </LinearLayout>
 

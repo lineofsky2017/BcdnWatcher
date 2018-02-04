@@ -15,6 +15,7 @@ public class WatcherItemBean implements Serializable {
     private String phone;
     private List<IncomeBean.DataBean.HistoryBean> incomeHistory;
     private boolean login;
+    private String token;
 
     public List<MinerBean> getMiners() {
         return miners;
@@ -72,6 +73,14 @@ public class WatcherItemBean implements Serializable {
         this.login = login;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     @Override
     public String toString() {
         return "WatcherItemBean{" +
@@ -82,6 +91,7 @@ public class WatcherItemBean implements Serializable {
                 ", phone='" + phone + '\'' +
                 ", incomeHistory=" + incomeHistory +
                 ", login=" + login +
+                ", token='" + token + '\'' +
                 '}';
     }
 
