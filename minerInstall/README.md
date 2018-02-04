@@ -1,7 +1,7 @@
 
 ## 本矿机安装脚本优势 ##
 
-- 一行命令自动安装
+- 自动安装
 - 自带守护进程
 - 开机自动启动
 
@@ -18,14 +18,20 @@
 #### Ubuntu ####
 
 ```
-curl -o-  https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerInstall/install_ubuntu.sh | bash
+curl -o- https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerInstall/install_ubuntu.sh | bash
 ```
 
 #### Centos ####
 
 
 ```
-curl -o-  https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerInstall/install_centos.sh | bash
+curl -o- https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerInstall/install_centos.sh | bash
+```
+
+## 输入挖矿码 ##
+
+```
+echo "这里替换成你的挖矿码" > ~/opt/M_BerryMiner_ubuntu_v1_0/server/conf/code.txt 
 ```
 
 
