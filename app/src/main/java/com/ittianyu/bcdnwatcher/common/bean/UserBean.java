@@ -44,6 +44,15 @@ public class UserBean implements Serializable {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "UserBean{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
     public static class DataBean {
         /**
          * token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTUzOTU2NDYsImlzcyI6InRlc3QiLCJuYmYiOjE1MTUzOTM2NDZ9.Z-ZxChV35mWGv5rmdiTQu1T5LCx7Ulb2xCL_nblesO8
@@ -111,6 +120,18 @@ public class UserBean implements Serializable {
 
         public void setEthAddress(String ethAddress) {
             this.ethAddress = ethAddress;
+        }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "token='" + token + '\'' +
+                    ", phoneNumber='" + phoneNumber + '\'' +
+                    ", userId='" + userId + '\'' +
+                    ", imgUrl='" + imgUrl + '\'' +
+                    ", areaCode='" + areaCode + '\'' +
+                    ", ethAddress='" + ethAddress + '\'' +
+                    '}';
         }
     }
 }

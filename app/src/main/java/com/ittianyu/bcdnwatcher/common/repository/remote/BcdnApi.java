@@ -80,7 +80,7 @@ public interface BcdnApi {
 
     @FormUrlEncoded
     @POST("/register/getCheckCode")
-    Observable<BookingAgainBean> getWithdrawVerifyCode(@Field("phoneNumber") String phone,
+    Observable<BcdnCommonBean> getWithdrawVerifyCode(@Field("phoneNumber") String phone,
                                               @Field("areaCode") String areaCode);
 
     @FormUrlEncoded

@@ -40,7 +40,7 @@ public interface BcdnDataSource {
 
     Observable<BindEthBean> bindEth(String phone, String token, String ethAddress, String type); // type=checkCoin
 
-    Observable<BookingAgainBean> getWithdrawVerifyCode(String phone, String areaCode);
+    Observable<BcdnCommonBean> getWithdrawVerifyCode(String phone, String areaCode);
 
     Observable<BcdnCommonBean> withdraw(String phone, String token, String amount, String checkCode);
 

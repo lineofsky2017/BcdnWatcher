@@ -75,7 +75,7 @@ public class BcdnRepository {
         return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.bindEth(phone, token, ethAddress, "checkCoin"));
     }
 
-    public LiveData<Lcee<BookingAgainBean>> getWithdrawVerifyCode(String phone, String areaCode) {
+    public LiveData<Lcee<BcdnCommonBean>> getWithdrawVerifyCode(String phone, String areaCode) {
         return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.getWithdrawVerifyCode(phone, areaCode));
     }
 

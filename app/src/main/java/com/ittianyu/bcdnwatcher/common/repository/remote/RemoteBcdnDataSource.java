@@ -103,9 +103,9 @@ public class RemoteBcdnDataSource implements BcdnDataSource {
     }
 
     @Override
-    public Observable<BookingAgainBean> getWithdrawVerifyCode(String phone, String areaCode) {
+    public Observable<BcdnCommonBean> getWithdrawVerifyCode(String phone, String areaCode) {
         return bcdnApi.getWithdrawVerifyCode(phone, areaCode)
-                .compose(RxUtils.<BookingAgainBean>netScheduler());
+                .compose(RxUtils.<BcdnCommonBean>netScheduler());
     }
 
     @Override

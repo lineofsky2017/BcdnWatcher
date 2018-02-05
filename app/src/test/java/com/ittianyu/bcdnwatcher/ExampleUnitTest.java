@@ -2,7 +2,7 @@ package com.ittianyu.bcdnwatcher;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.Locale;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -11,7 +11,10 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+    public void testFormatDouble() throws Exception {
+//        assertEquals(4, 2 + 2);
+        String money = String.format(Locale.CHINESE, "%.3f", 12.1659);
+        String result = money.substring(0, money.length() - 1);
+        System.out.println(result);
     }
 }

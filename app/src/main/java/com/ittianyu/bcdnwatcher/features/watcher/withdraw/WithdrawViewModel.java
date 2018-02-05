@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.ittianyu.bcdnwatcher.common.bean.BcdnCommonBean;
-import com.ittianyu.bcdnwatcher.common.bean.BookingAgainBean;
 import com.ittianyu.bcdnwatcher.common.bean.Lcee;
 import com.ittianyu.bcdnwatcher.common.repository.BcdnRepository;
 
@@ -15,7 +14,7 @@ import com.ittianyu.bcdnwatcher.common.repository.BcdnRepository;
 public class WithdrawViewModel extends ViewModel {
     private BcdnRepository bcdnRepository = BcdnRepository.getInstance();
 
-    public LiveData<Lcee<BookingAgainBean>> getWithdrawVerifyCode(String phone, String areaCode) {
+    public LiveData<Lcee<BcdnCommonBean>> getWithdrawVerifyCode(String phone, String areaCode) {
         return bcdnRepository.getWithdrawVerifyCode(phone, areaCode);
     }
 

@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.ittianyu.bcdnwatcher.R;
 import com.ittianyu.bcdnwatcher.common.bean.BcdnCommonBean;
-import com.ittianyu.bcdnwatcher.common.bean.BookingAgainBean;
 import com.ittianyu.bcdnwatcher.common.bean.Lcee;
 import com.ittianyu.bcdnwatcher.common.bean.Status;
 import com.ittianyu.bcdnwatcher.common.bean.WatcherItemBean;
@@ -109,23 +108,23 @@ public class WithdrawActivity extends AppCompatActivity {
         });
     }
 
-
     private String getTotalIncome() {
-        return String.format(Locale.CHINESE, "%.2f", item.getTotalIncome());
+        String totalCount = String.format(Locale.CHINESE, "%.3f", item.getTotalIncome());
+        return totalCount.substring(0, totalCount.length() - 1);
     }
 
     private void sendVerifyCodeWithdraw() {
-        final LiveData<Lcee<BookingAgainBean>> withdrawVerifyCodeLd = withdrawViewModel.getWithdrawVerifyCode(item.getPhone(), item.getAreaCode());
-        withdrawVerifyCodeLd.observe(this, new Observer<Lcee<BookingAgainBean>>() {
+        final LiveData<Lcee<BcdnCommonBean>> withdrawVerifyCodeLd = withdrawViewModel.getWithdrawVerifyCode(item.getPhone(), item.getAreaCode());
+        withdrawVerifyCodeLd.observe(this, new Observer<Lcee<BcdnCommonBean>>() {
             @Override
-            public void onChanged(@Nullable Lcee<BookingAgainBean> lcee) {
+            public void onChanged(@Nullable Lcee<BcdnCommonBean> lcee) {
                 LceeUtils.removeObservers(withdrawVerifyCodeLd, lcee, WithdrawActivity.this);
                 updateVerifyCodeWithdrawView(lcee);
             }
         });
     }
 
-    private void updateVerifyCodeWithdrawView(Lcee<BookingAgainBean> lcee) {
+    private void updateVerifyCodeWithdrawView(Lcee<BcdnCommonBean> lcee) {
         Logger.d(lcee);
 
         if (null == lcee) {
@@ -150,7 +149,7 @@ public class WithdrawActivity extends AppCompatActivity {
         }
     }
 
-    private void handleVerifyCodeWithdraResult(Lcee<BookingAgainBean> lcee) {
+    private void handleVerifyCodeWithdraResult(Lcee<BcdnCommonBean> lcee) {
         if (lcee.data.getCode() != BcdnCommonBean.CODE_SUCCESS) {
             bind.btnGetVerifyCode.setEnabled(true);
             Toast.makeText(this, R.string.tips_action_error, Toast.LENGTH_SHORT).show();
