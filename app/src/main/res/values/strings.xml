@@ -8,7 +8,7 @@
     <string name="tips_network_error">网络错误，点击重试</string>
     <string name="tips_network_empty">没有数据，点击重新加载</string>
     <string name="tips_refresh_error">刷新失败</string>
-    <string name="yesterday_income">昨日收益:</string>
+    <string name="today_income">今日收益:</string>
     <string name="total_income">总收益:</string>
     <string name="online">在线</string>
     <string name="offline">离线</string>

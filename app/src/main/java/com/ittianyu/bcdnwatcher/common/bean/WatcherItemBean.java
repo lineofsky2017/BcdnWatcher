@@ -10,7 +10,7 @@ import java.util.List;
 public class WatcherItemBean implements Serializable {
     private List<MinerBean> miners;
     private double totalIncome;
-    private double yesterdayIncome;
+    private double todayIncome;
     private String areaCode;
     private String phone;
     private List<IncomeBean.DataBean.HistoryBean> incomeHistory;
@@ -33,12 +33,12 @@ public class WatcherItemBean implements Serializable {
         this.totalIncome = totalIncome;
     }
 
-    public double getYesterdayIncome() {
-        return yesterdayIncome;
+    public double getTodayIncome() {
+        return todayIncome;
     }
 
-    public void setYesterdayIncome(double yesterdayIncome) {
-        this.yesterdayIncome = yesterdayIncome;
+    public void setTodayIncome(double todayIncome) {
+        this.todayIncome = todayIncome;
     }
 
     public String getAreaCode() {
@@ -86,7 +86,7 @@ public class WatcherItemBean implements Serializable {
         return "WatcherItemBean{" +
                 "miners=" + miners +
                 ", totalIncome=" + totalIncome +
-                ", yesterdayIncome=" + yesterdayIncome +
+                ", todayIncome=" + todayIncome +
                 ", areaCode='" + areaCode + '\'' +
                 ", phone='" + phone + '\'' +
                 ", incomeHistory=" + incomeHistory +

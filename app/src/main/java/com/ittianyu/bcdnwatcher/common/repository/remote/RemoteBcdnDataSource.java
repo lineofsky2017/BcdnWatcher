@@ -170,7 +170,7 @@ public class RemoteBcdnDataSource implements BcdnDataSource {
 
                         item.setIncomeHistory(income.getHistory());
                         item.setTotalIncome(income.getTotalIncome());
-                        item.setYesterdayIncome(getYesterdayIncome(income.getHistory()));// 接口返回数据是前天的收入，这里需要手动计算
+                        item.setTodayIncome(getTodayIncome(income.getHistory()));// 接口返回数据是前天的收入，这里需要手动计算
                     } catch (Exception e) {
                         Logger.e(e, e.getMessage());
                         item.setLogin(false);
@@ -183,11 +183,11 @@ public class RemoteBcdnDataSource implements BcdnDataSource {
     }
 
     /**
-     * 根据历史收益计算出昨日收益，忽略本地时间不对的情况
+     * 根据历史收益计算出今天收益，忽略本地时间不对的情况
      * @param history
      * @return
      */
-    private double getYesterdayIncome(List<IncomeBean.DataBean.HistoryBean> history) {
+    private double getTodayIncome(List<IncomeBean.DataBean.HistoryBean> history) {
         double income = 0;
         if (CollectionUtils.isEmpty(history))
             return income;

@@ -64,7 +64,7 @@
             android:paddingEnd="8dp"
             android:text="TextView"
             android:textColor="@color/colorDarkGray"
-            tools:text="@string/yesterday_income" />
+            tools:text="@string/today_income" />
 
         <TextView
             android:id="@+id/tv_total_income"

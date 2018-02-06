@@ -30,7 +30,7 @@ public class WatcherAdapter extends BaseItemDraggableAdapter<WatcherItemBean, Ba
         // 其他信息
         helper.setText(R.id.tv_area_code, "+" + item.getAreaCode());
         helper.setText(R.id.tv_phone, item.getPhone());
-        helper.setText(R.id.tv_yesterday_income, mContext.getString(R.string.yesterday_income) + item.getYesterdayIncome());
+        helper.setText(R.id.tv_yesterday_income, mContext.getString(R.string.today_income) + item.getTodayIncome());
         helper.setText(R.id.tv_total_income, mContext.getString(R.string.total_income) + item.getTotalIncome());
 
         // 按钮事件
