@@ -11,30 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/tb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp">
-
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/home"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.Toolbar>
-
         <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
             android:id="@+id/bnve"
             android:layout_width="match_parent"
@@ -50,8 +26,7 @@
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/bnve"
-            android:layout_below="@id/tb" />
+            android:layout_above="@id/bnve" />
 
     </RelativeLayout>
 </layout>

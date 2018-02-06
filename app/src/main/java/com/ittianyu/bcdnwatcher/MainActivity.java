@@ -8,7 +8,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
@@ -28,8 +27,6 @@ import java.util.List;
 import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final int[] titles = new int[] {R.string.home, R.string.wool, R.string.me};
 
     private ActivityMainBinding bind;
     private MainViewModel mainViewModel;
@@ -91,13 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initEvent() {
-        bind.vp.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                bind.tvTitle.setText(titles[position]);
-            }
-        });
+
     }
 
     private void checkUpdate() {
