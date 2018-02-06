@@ -168,9 +168,9 @@ public class RemoteBcdnDataSource implements BcdnDataSource {
                         // query income
                         IncomeBean.DataBean income = queryIncomeHistory(phone, token).blockingFirst().getData();
 
-                        item.setTotalIncome(income.getTotalIncome());
-                        item.setYesterdayIncome(income.getYestodayIncome());
                         item.setIncomeHistory(income.getHistory());
+                        item.setTotalIncome(income.getTotalIncome());
+                        item.setYesterdayIncome(getYesterdayIncome(income.getHistory()));// 接口返回数据是前天的收入，这里需要手动计算
                     } catch (Exception e) {
                         Logger.e(e, e.getMessage());
                         item.setLogin(false);
@@ -181,4 +181,26 @@ public class RemoteBcdnDataSource implements BcdnDataSource {
             }
         }).compose(RxUtils.<List<WatcherItemBean>>netScheduler());
     }
+
+    /**
+     * 根据历史收益计算出昨日收益，忽略本地时间不对的情况
+     * @param history
+     * @return
+     */
+    private double getYesterdayIncome(List<IncomeBean.DataBean.HistoryBean> history) {
+        double income = 0;
+        if (CollectionUtils.isEmpty(history))
+            return income;
+        long now = System.currentTimeMillis();
+        for (int i = history.size() - 1; i >= 0; i--) {
+            IncomeBean.DataBean.HistoryBean item = history.get(i);
+            long time = Long.parseLong(item.getDate()) * 1000;
+            if (now - time > 1000L * 60 * 60 * 24) {// 和现在相差 1 天以上，说明是前天的收入
+                break;
+            }
+            income += item.getIncome();
+        }
+        return income;
+    }
+
 }
