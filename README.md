@@ -27,10 +27,10 @@ BCDN 多账号监控管理软件
 
 点击链接下载
 
-https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/apk/bcdn_miner_v1.0.0.apk
+https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/apk/bcdn_miner_v1.0.1.apk
 
 或扫描二维码下载<br/>
-![](./apk/bcdn_miner_v1.0.0.png)
+![](./apk/bcdn_miner_v1.0.1.png)
 
 
 #### 截图 ####
