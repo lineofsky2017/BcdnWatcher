@@ -29,10 +29,10 @@ wget https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerIn
 chmod +x daemon.sh
 
 # 开机自动启动脚本
-echo -e '#!/bin/sh\n  cd ~/opt/BDCN_sh\n nohup ./daemon.sh > ~/opt/BDCN_sh/nohup.out' > ~/opt/BDCN_sh/auto_startup.sh
-chmod +x ~/opt/BDCN_sh/auto_startup.sh
-chmod +x /etc/rc.d/rc.local
-echo "~/opt/BDCN_sh/auto_startup.sh" >> /etc/rc.d/rc.local
+#echo -e '#!/bin/sh\n  cd ~/opt/BDCN_sh\n nohup ./daemon.sh > ~/opt/BDCN_sh/nohup.out' > ~/opt/BDCN_sh/auto_startup.sh
+#chmod +x ~/opt/BDCN_sh/auto_startup.sh
+#chmod +x /etc/rc.d/rc.local
+#echo "~/opt/BDCN_sh/auto_startup.sh" >> /etc/rc.d/rc.local
 
 # 输入挖矿码
 #read -p "请输入挖矿码(Please input your miner code):" code
