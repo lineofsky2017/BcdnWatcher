@@ -86,4 +86,9 @@ public class BcdnRepository {
     public LiveData<Lcee<WithdrawHistoryBean>> queryWithdrawHistory(String phone, String token) {
         return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.queryWithdrawHistory(phone, token));
     }
+
+    public LiveData<Lcee<List<BookingAgainBean>>> batchBookingW(List<WatcherItemBean> items) {
+        return LiveDataObservableAdapter.fromObservableLcee(bcdnRds.batchBookingW(items));
+    }
+
 }

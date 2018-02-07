@@ -36,8 +36,10 @@ import com.ittianyu.bcdnwatcher.common.bean.Lcee;
 import com.ittianyu.bcdnwatcher.common.bean.ListStatus;
 import com.ittianyu.bcdnwatcher.common.bean.Status;
 import com.ittianyu.bcdnwatcher.common.bean.WatcherItemBean;
+import com.ittianyu.bcdnwatcher.common.utils.CollectionUtils;
 import com.ittianyu.bcdnwatcher.common.utils.DialogUtils;
 import com.ittianyu.bcdnwatcher.common.utils.LceeUtils;
+import com.ittianyu.bcdnwatcher.common.view.PopupList;
 import com.ittianyu.bcdnwatcher.databinding.FragmentWatcherBinding;
 import com.ittianyu.bcdnwatcher.features.addaccount.AddAccountActivity;
 import com.ittianyu.bcdnwatcher.features.watcher.bindeth.BindEthActivity;
@@ -48,6 +50,7 @@ import com.ittianyu.bcdnwatcher.features.watcher.withdrawhistory.WithdrawHistory
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -106,6 +109,9 @@ public class WatcherFragment extends LceeFragment {
         watcherAdapter.enableDragItem(itemTouchHelper);
         // 滑动删除
         watcherAdapter.enableSwipeItem();
+
+        // bind menu
+        bindMainMenu();
     }
 
     private void initData() {
@@ -491,5 +497,86 @@ public class WatcherFragment extends LceeFragment {
                 break;
             }
         }
+    }
+
+    private void bindMainMenu() {
+        PopupList popupList = new PopupList(getContext());
+        popupList.bind(bind.ivMenu, Arrays.asList(getString(R.string.batch_booking_w)), new PopupList.PopupListListener() {
+            @Override
+            public boolean showPopupList(View adapterView, View contextView, int contextPosition) {
+                return true;
+            }
+            @Override
+            public void onPopupListClick(View contextView, int contextPosition, int position) {
+                switch (position) {
+                    case 0: {// 批量预约 w 码
+                        batchBookingW();
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+    private void batchBookingW() {
+        List<WatcherItemBean> items = watcherAdapter.getData();
+        if (CollectionUtils.isEmpty(items)) {
+            Toast.makeText(getContext(), R.string.tips_no_account, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        final LiveData<Lcee<List<BookingAgainBean>>> batchBookingWLd = watcherViewModel.batchBookingW(items);
+        batchBookingWLd.observe(this, new Observer<Lcee<List<BookingAgainBean>>>() {
+            @Override
+            public void onChanged(@Nullable Lcee<List<BookingAgainBean>> lcee) {
+                LceeUtils.removeObservers(batchBookingWLd, lcee, WatcherFragment.this);
+                updateBatchBookingWView(lcee);
+            }
+        });
+    }
+
+    private void updateBatchBookingWView(Lcee<List<BookingAgainBean>> lcee) {
+        Logger.d(lcee);
+        if (lcee == null || lcee.status != Status.Loading && loadingDialog != null) {
+            loadingDialog.dismiss();
+            loadingDialog = null;
+        }
+        if (null == lcee)
+            return;
+        switch (lcee.status) {
+            case Empty:
+            case Content: {
+                int count = getSuccessCountFromBatchBookingW(lcee.data);
+                int totalCount = watcherAdapter.getItemCount();
+                Toast.makeText(getContext(), getString(R.string.tips_batch_booking, totalCount, count), Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case Error: {
+                Toast.makeText(getContext(), R.string.tips_action_error, Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case Loading: {
+                if (null != loadingDialog)
+                    loadingDialog.dismiss();
+                loadingDialog = DialogUtils.showLoadingDialog(getContext());
+                break;
+            }
+        }
+    }
+
+    private int getSuccessCountFromBatchBookingW(List<BookingAgainBean> items) {
+        int count = 0;
+        for (BookingAgainBean item : items) {
+            if (item.getCode() == BcdnCommonBean.CODE_TOKEN_TIMEOUT) {
+                Toast.makeText(getContext(), R.string.tips_token_timeout, Toast.LENGTH_SHORT).show();
+                return count;
+            }
+            BookingAgainBean.DataBean data = item.getData();
+            if (data == null || TextUtils.isEmpty(data.getReservationCode())) {
+            } else {
+                count++;
+            }
+        }
+        return count;
     }
 }

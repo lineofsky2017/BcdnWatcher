@@ -63,6 +63,16 @@ echo "/root/opt/BDCN_sh/auto_startup.sh" >> /etc/rc.d/rc.local
 ```
 
 
+## 手动启动守护程序 ##
+
+如果没有添加开启启动，在重启 linux 后，需要手动开启守护进程。只需要执行下面命令即可
+
+```
+cd ~/opt/BDCN_sh
+nohup ./daemon.sh &
+```
+
+
 ## 代安装矿机服务 ##
 
 针对小白玩家，可能连什么是 shell 都不清楚，完全不会动手的，本人提供代安装矿机服务。

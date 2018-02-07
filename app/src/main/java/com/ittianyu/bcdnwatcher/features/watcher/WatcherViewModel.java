@@ -37,4 +37,7 @@ public class WatcherViewModel extends ViewModel {
         return bcdnRepository.bookingAgain(phone, token);
     }
 
+    public LiveData<Lcee<List<BookingAgainBean>>> batchBookingW(List<WatcherItemBean> items) {
+        return bcdnRepository.batchBookingW(items);
+    }
 }

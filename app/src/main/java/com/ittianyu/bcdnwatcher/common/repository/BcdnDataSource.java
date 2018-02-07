@@ -45,4 +45,6 @@ public interface BcdnDataSource {
     Observable<BcdnCommonBean> withdraw(String phone, String token, String amount, String checkCode);
 
     Observable<WithdrawHistoryBean> queryWithdrawHistory(String phone, String token);
+
+    Observable<List<BookingAgainBean>> batchBookingW(List<WatcherItemBean> items);
 }

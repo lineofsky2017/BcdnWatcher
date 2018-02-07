@@ -120,6 +120,11 @@ public class RemoteBcdnDataSource implements BcdnDataSource {
                 .compose(RxUtils.<WithdrawHistoryBean>netScheduler());
     }
 
+    @Override
+    public Observable<List<BookingAgainBean>> batchBookingW(List<WatcherItemBean> items) {
+        return batchBookingWRx(items);
+    }
+
     private Observable<List<WatcherItemBean>> queryWatcherListRx() {
         return RxUtils.fromCallable(new Callable<List<WatcherItemBean>>() {
             @Override
@@ -201,6 +206,25 @@ public class RemoteBcdnDataSource implements BcdnDataSource {
             income += item.getIncome();
         }
         return income;
+    }
+
+
+    private Observable<List<BookingAgainBean>> batchBookingWRx(final List<WatcherItemBean> items) {
+        return RxUtils.fromCallable(new Callable<List<BookingAgainBean>>() {
+            @Override
+            public List<BookingAgainBean> call() throws Exception {
+                List<BookingAgainBean> list = new ArrayList<>(items.size());
+                for (WatcherItemBean item : items) {
+                    try {
+                        BookingAgainBean result = bcdnApi.bookingAgain(item.getPhone(), item.getToken()).blockingFirst();
+                        list.add(result);
+                    } catch (Exception e) {
+                        Logger.e(e, e.getMessage());
+                    }
+                }
+                return list;
+            }
+        }).compose(RxUtils.<List<BookingAgainBean>>netScheduler());
     }
 
 }
