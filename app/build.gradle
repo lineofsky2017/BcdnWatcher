@@ -90,4 +90,5 @@ dependencies {
     // permission
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'// rxpermisssion
 
+    implementation 'com.github.githubwing:ByeBurger:1.2.3'
 }
