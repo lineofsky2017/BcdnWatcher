@@ -27,6 +27,8 @@ public class WatcherAdapter extends BaseItemDraggableAdapter<WatcherItemBean, Ba
     protected void convert(BaseViewHolder helper, WatcherItemBean item) {
         // 状态
         helper.setVisible(R.id.tv_status, !item.isLogin());
+        helper.setVisible(R.id.iv_menu, item.isLogin());
+
         // 其他信息
         helper.setText(R.id.tv_area_code, "+" + item.getAreaCode());
         helper.setText(R.id.tv_phone, item.getPhone());
@@ -34,10 +36,11 @@ public class WatcherAdapter extends BaseItemDraggableAdapter<WatcherItemBean, Ba
         helper.setText(R.id.tv_total_income, mContext.getString(R.string.total_income) + item.getTotalIncome());
 
         // 按钮事件
-        helper.addOnClickListener(R.id.btn_withdraw_history);
-        helper.addOnClickListener(R.id.btn_booking_w);
-        helper.addOnClickListener(R.id.btn_draw_money);
-        helper.addOnClickListener(R.id.btn_bind_s);
+//        helper.addOnClickListener(R.id.btn_withdraw_history);
+//        helper.addOnClickListener(R.id.btn_booking_w);
+//        helper.addOnClickListener(R.id.btn_draw_money);
+//        helper.addOnClickListener(R.id.btn_bind_s);
+        helper.addOnClickListener(R.id.iv_menu);
 
         // 一个帐号可能有多个码，动态生成对应的 view
         ViewGroup miners = helper.getView(R.id.v_miners);

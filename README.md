@@ -16,12 +16,11 @@ BCDN 多账号监控管理软件
 7. 提币
 8. 提币记录查看
 9. 绑定挖矿码
+10. 批量预约 (首页右上角菜单)
 
 #### 待开发功能 ####
-
-1. 批量预约
-2. 云监控，掉线通知
-3. 分享撸羊毛活动
+1. 云监控，掉线通知
+2. 分享撸羊毛活动
 
 
 #### 下载地址 ####
@@ -37,6 +36,12 @@ https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/apk/bcdn_miner_v1.0.0.a
 #### 截图 ####
 
 ![](./screenshot/index.png)
+
+
+## Linux 矿机安装教程 ##
+
+[详情点这里](./minerInstall/README.md)
+
 
 ## 项目详情 ##
 

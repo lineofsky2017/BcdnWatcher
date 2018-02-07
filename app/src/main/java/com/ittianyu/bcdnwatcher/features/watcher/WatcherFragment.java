@@ -65,6 +65,7 @@ public class WatcherFragment extends LceeFragment {
     private WatcherViewModel watcherViewModel;
     private WatcherAdapter watcherAdapter;
     private Dialog loadingDialog;
+    PopupList itemMenu;
 
     @Nullable
     @Override
@@ -112,6 +113,8 @@ public class WatcherFragment extends LceeFragment {
 
         // bind menu
         bindMainMenu();
+
+        itemMenu = new PopupList(getContext());
     }
 
     private void initData() {
@@ -180,30 +183,8 @@ public class WatcherFragment extends LceeFragment {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 WatcherItemBean item = watcherAdapter.getData().get(position);
                 switch (view.getId()) {
-//                    case R.id.btn_booking_s: {
-//                        Toast.makeText(getContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
-//                        break;
-//                    }
-                    case R.id.btn_booking_w: {
-                        onBookingW(item);
-                        break;
-                    }
-                    case R.id.btn_withdraw_history: {
-                        Intent intent = new Intent(getContext(), WithdrawHistoryActivity.class);
-                        intent.putExtra(BindSActivity.EXTRA_ITEM, item);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.btn_draw_money: {
-                        Intent intent = new Intent(getContext(), WithdrawActivity.class);
-                        intent.putExtra(BindSActivity.EXTRA_ITEM, item);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.btn_bind_s: {
-                        Intent intent = new Intent(getContext(), BindSActivity.class);
-                        intent.putExtra(BindSActivity.EXTRA_ITEM, item);
-                        startActivityForResult(intent, REQ_BIND_S);
+                    case R.id.iv_menu: {
+                        showItemMenu(view, position);
                         break;
                     }
                 }
@@ -506,6 +487,7 @@ public class WatcherFragment extends LceeFragment {
             public boolean showPopupList(View adapterView, View contextView, int contextPosition) {
                 return true;
             }
+
             @Override
             public void onPopupListClick(View contextView, int contextPosition, int position) {
                 switch (position) {
@@ -579,4 +561,54 @@ public class WatcherFragment extends LceeFragment {
         }
         return count;
     }
+
+
+    private void showItemMenu(View view, int contextPosition) {
+        int[] location = new int[2];
+        view.getLocationInWindow(location);
+//        Logger.d("x:" + location[0] + ", y:" + location[1]);
+        itemMenu.showPopupListWindow(view, contextPosition, location[0] + view.getWidth() / 2, location[1],
+                Arrays.asList(getString(R.string.booking_w), getString(R.string.withdraw_history),
+                        getString(R.string.withdraw), getString(R.string.bind_s)),
+                new PopupList.PopupListListener() {
+                    @Override
+                    public boolean showPopupList(View adapterView, View contextView, int contextPosition) {
+                        return true;
+                    }
+
+                    @Override
+                    public void onPopupListClick(View contextView, int contextPosition, int position) {
+                        onCheckItemMenu(contextPosition, position);
+                    }
+                });
+    }
+
+    private void onCheckItemMenu(int contextPosition, int position) {
+        WatcherItemBean item = watcherAdapter.getData().get(contextPosition);
+        switch (position) {
+            case 0: {// w 码预约
+                onBookingW(item);
+                break;
+            }
+            case 1: {// 提现记录
+                Intent intent = new Intent(getContext(), WithdrawHistoryActivity.class);
+                intent.putExtra(BindSActivity.EXTRA_ITEM, item);
+                startActivity(intent);
+                break;
+            }
+            case 2: {// 提币
+                Intent intent = new Intent(getContext(), WithdrawActivity.class);
+                intent.putExtra(BindSActivity.EXTRA_ITEM, item);
+                startActivity(intent);
+                break;
+            }
+            case 3: {// 绑定 s 码
+                Intent intent = new Intent(getContext(), BindSActivity.class);
+                intent.putExtra(BindSActivity.EXTRA_ITEM, item);
+                startActivityForResult(intent, REQ_BIND_S);
+                break;
+            }
+        }
+    }
+
 }

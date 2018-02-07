@@ -38,7 +38,7 @@
     <string name="open_source">开源地址</string>
     <string name="booking_w">w码预约</string>
     <string name="booking_s">s码预约</string>
-    <string name="draw_money">提币</string>
+    <string name="withdraw">提币</string>
     <string name="bind_s">绑定S码</string>
     <string name="tips_booked">您已经预约过了，请等待开奖</string>
     <string name="tips_booked_success">您已经成功抽到挖矿码，无法再次预约</string>
