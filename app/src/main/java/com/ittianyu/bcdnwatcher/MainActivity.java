@@ -8,10 +8,10 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.ittianyu.bcdnwatcher.common.adapter.VpAdapter;
+import com.ittianyu.bcdnwatcher.common.base.BaseActivity;
 import com.ittianyu.bcdnwatcher.common.bean.VersionBean;
 import com.ittianyu.bcdnwatcher.common.utils.UpdateUtils;
 import com.ittianyu.bcdnwatcher.databinding.ActivityMainBinding;
@@ -20,14 +20,13 @@ import com.ittianyu.bcdnwatcher.features.watcher.WatcherFragment;
 import com.ittianyu.bcdnwatcher.features.wool.WoolFragment;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.functions.Consumer;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding bind;
     private MainViewModel mainViewModel;
@@ -42,15 +41,6 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initData();
         initEvent();
-    }
-
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     private void initPermission() {

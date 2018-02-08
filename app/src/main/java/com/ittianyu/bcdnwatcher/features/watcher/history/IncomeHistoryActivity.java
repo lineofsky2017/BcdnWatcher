@@ -3,16 +3,15 @@ package com.ittianyu.bcdnwatcher.features.watcher.history;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.ittianyu.bcdnwatcher.R;
+import com.ittianyu.bcdnwatcher.common.base.BaseActivity;
 import com.ittianyu.bcdnwatcher.common.bean.IncomeBean;
 import com.ittianyu.bcdnwatcher.databinding.ActivityIncomeHistoryBinding;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +20,7 @@ import java.util.Collections;
  * Created by yu on 2018/1/30.
  */
 
-public class IncomeHistoryActivity extends AppCompatActivity {
+public class IncomeHistoryActivity extends BaseActivity {
     public static final String EXTRA_INCOME_HISTORY = "income_history";
 
     private ActivityIncomeHistoryBinding bind;
@@ -35,15 +34,6 @@ public class IncomeHistoryActivity extends AppCompatActivity {
         initView();
         initData();
         initEvent();
-    }
-
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     private void initView() {

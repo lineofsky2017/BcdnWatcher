@@ -74,12 +74,21 @@ public class MeFragment extends Fragment {
             }
         });
 
+        bind.siSuggestionQq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardUtils.copyText(getContext(), "qq_group", "137413883");
+                DialogUtils.showInfoDialog(getContext(), getString(R.string.tips), getString(R.string.tips_suggestion_qq));
+            }
+        });
+
         bind.siAboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogUtils.showInfoDialog(getContext(), getString(R.string.tips), getString(R.string.tips_about_us));
             }
         });
+
     }
 
 }

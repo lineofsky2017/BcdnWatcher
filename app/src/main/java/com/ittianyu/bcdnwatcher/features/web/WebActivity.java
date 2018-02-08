@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,11 +11,11 @@ import android.view.View;
 import android.webkit.WebSettings;
 
 import com.ittianyu.bcdnwatcher.R;
+import com.ittianyu.bcdnwatcher.common.base.BaseActivity;
 import com.ittianyu.bcdnwatcher.databinding.ActivityWebBinding;
-import com.umeng.analytics.MobclickAgent;
 
 
-public class WebActivity extends AppCompatActivity {
+public class WebActivity extends BaseActivity {
     public static final String EXTRA_URL = "url";
     public static final String EXTRA_TITLE = "title";
 
@@ -34,15 +33,6 @@ public class WebActivity extends AppCompatActivity {
         initData();
         initView();
         initEvent();
-    }
-
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     private void initView() {

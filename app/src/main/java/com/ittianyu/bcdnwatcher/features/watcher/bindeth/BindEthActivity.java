@@ -7,12 +7,12 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
 import com.ittianyu.bcdnwatcher.R;
+import com.ittianyu.bcdnwatcher.common.base.BaseActivity;
 import com.ittianyu.bcdnwatcher.common.bean.BcdnCommonBean;
 import com.ittianyu.bcdnwatcher.common.bean.BindEthBean;
 import com.ittianyu.bcdnwatcher.common.bean.Lcee;
@@ -22,7 +22,6 @@ import com.ittianyu.bcdnwatcher.common.utils.DialogUtils;
 import com.ittianyu.bcdnwatcher.common.utils.LceeUtils;
 import com.ittianyu.bcdnwatcher.databinding.ActivityBindEthBinding;
 import com.orhanobut.logger.Logger;
-import com.umeng.analytics.MobclickAgent;
 
 import java.io.Serializable;
 
@@ -30,7 +29,7 @@ import java.io.Serializable;
  * Created by yu on 2018/1/30.
  */
 
-public class BindEthActivity extends AppCompatActivity {
+public class BindEthActivity extends BaseActivity {
     public static final String EXTRA_ITEM = "item";
 
     private ActivityBindEthBinding bind;
@@ -47,15 +46,6 @@ public class BindEthActivity extends AppCompatActivity {
         initView();
         initData();
         initEvent();
-    }
-
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     private void initView() {

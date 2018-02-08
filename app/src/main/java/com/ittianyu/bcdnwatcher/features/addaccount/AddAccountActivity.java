@@ -6,11 +6,11 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
 import com.ittianyu.bcdnwatcher.R;
+import com.ittianyu.bcdnwatcher.common.base.BaseActivity;
 import com.ittianyu.bcdnwatcher.common.bean.AccountBean;
 import com.ittianyu.bcdnwatcher.common.bean.Lcee;
 import com.ittianyu.bcdnwatcher.common.bean.Status;
@@ -18,13 +18,12 @@ import com.ittianyu.bcdnwatcher.common.utils.DialogUtils;
 import com.ittianyu.bcdnwatcher.common.utils.EncryptionUtils;
 import com.ittianyu.bcdnwatcher.databinding.ActivityAddAccountBinding;
 import com.orhanobut.logger.Logger;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by 86839 on 2018/1/28.
  */
 
-public class AddAccountActivity extends AppCompatActivity {
+public class AddAccountActivity extends BaseActivity {
 
     private ActivityAddAccountBinding bind;
     private AccountBean account = new AccountBean();
@@ -39,15 +38,6 @@ public class AddAccountActivity extends AppCompatActivity {
         initView();
         initData();
         initEvent();
-    }
-
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     private void initView() {

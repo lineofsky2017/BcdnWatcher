@@ -29,7 +29,7 @@
     <string name="dai_gua">代挂</string>
     <string name="coming_soon">敬请期待</string>
     <string name="tips">提示</string>
-    <string name="tips_dai_gua">超级节点  7元/天  1.5ms延迟\n极速节点  5元/天  15ms延迟\n高速节点  4元/天  30ms延迟\n普通节点  3元/天  40-60ms延迟\n低速节点 1元/天 100ms以上延迟\n(延迟越高越容易掉线，推荐优质节点\n延迟是节点与挖矿服务器通信一次的时间)\n\n承诺：挂满一天低于正常收益30%退款，含 bcdn官方故障\n\n联系QQ 1125316526 或 微信 ittianyu\n(已复制qq号，打开qq添加好友即可)\n\n自助代挂系统开发中，敬请期待</string>
+    <string name="tips_dai_gua">超级节点  6元/天  1.5ms延迟\n极速节点  5元/天  15ms延迟\n高速节点  4元/天  30ms延迟\n普通节点  3元/天  40-60ms延迟\n低速节点 1元/天 100ms以上延迟\n(延迟越高越容易掉线，推荐优质节点\n延迟是节点与挖矿服务器通信一次的时间)\n\n承诺：挂满一天低于正常收益30%退款，含 bcdn官方故障\n\n联系QQ 1125316526 或 微信 ittianyu\n(已复制qq号，打开qq添加好友即可)\n\n自助代挂系统开发中，敬请期待</string>
     <string name="miner_install">Linux 矿机安装教程</string>
     <string name="refresh">刷新</string>
     <string name="open_in_browser">浏览器中打开</string>
@@ -72,5 +72,7 @@
     <string name="yesterday_income">昨日收益</string>
     <string name="login_error">登录失败</string>
     <string name="delete">删除</string>
+    <string name="suggestion_qq">意见反馈交流-QQ群</string>
+    <string name="tips_suggestion_qq">QQ群号码 137413883\n(已复制号码，打开QQ申请入群)</string>
 
 </resources>

@@ -60,7 +60,7 @@ public class MainApplication extends Application {
     }
 
     private void initUmeng() {
-        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
+        UMConfigure.init(getContext(), UMConfigure.DEVICE_TYPE_PHONE, null);
         MobclickAgent.setScenarioType(getContext(), MobclickAgent.EScenarioType.E_DUM_NORMAL);
     }
 

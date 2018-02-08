@@ -1,6 +1,5 @@
 package com.ittianyu.bcdnwatcher.common.base;
 
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.ittianyu.bcdnwatcher.common.bean.ListStatus;
@@ -10,7 +9,7 @@ import com.ittianyu.bcdnwatcher.common.bean.Status;
  * Created by 86839 on 2018/1/28.
  */
 
-public class LceeActivity extends AppCompatActivity {
+public class LceeActivity extends BaseActivity {
     private Status status;
     private ListStatus listStatus = ListStatus.Content;
     // view
