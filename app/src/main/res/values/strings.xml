@@ -74,5 +74,6 @@
     <string name="delete">删除</string>
     <string name="suggestion_qq">意见反馈交流-QQ群</string>
     <string name="tips_suggestion_qq">QQ群号码 137413883\n(已复制号码，打开QQ申请入群)</string>
+    <string name="tips_download_start">开始下载，下载进度请下拉顶部通知栏查看</string>
 
 </resources>

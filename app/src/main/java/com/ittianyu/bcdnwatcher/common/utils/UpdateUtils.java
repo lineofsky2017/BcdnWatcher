@@ -24,6 +24,7 @@ public class UpdateUtils {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                Toast.makeText(appContext, R.string.tips_download_start, Toast.LENGTH_SHORT).show();
                 startDownload(appContext, url);
             }
         });
