@@ -136,14 +136,6 @@ public class WatcherFragment extends LceeFragment {
             }
         });
 
-        // fab add
-        bind.fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), AddAccountActivity.class), REQ_ADD_ACCOUNT);
-            }
-        });
-
         // delete listener
         watcherAdapter.setOnItemSwipeListener(new OnItemSwipeListener() {
             @Override
@@ -482,22 +474,28 @@ public class WatcherFragment extends LceeFragment {
 
     private void bindMainMenu() {
         PopupList popupList = new PopupList(getContext());
-        popupList.bind(bind.ivMenu, Arrays.asList(getString(R.string.batch_booking_w)), new PopupList.PopupListListener() {
-            @Override
-            public boolean showPopupList(View adapterView, View contextView, int contextPosition) {
-                return true;
-            }
-
-            @Override
-            public void onPopupListClick(View contextView, int contextPosition, int position) {
-                switch (position) {
-                    case 0: {// 批量预约 w 码
-                        batchBookingW();
-                        break;
+        popupList.bind(bind.ivMenu, Arrays.asList(getString(R.string.batch_booking_w),
+                getString(R.string.add_account)),
+                new PopupList.PopupListListener() {
+                    @Override
+                    public boolean showPopupList(View adapterView, View contextView, int contextPosition) {
+                        return true;
                     }
-                }
-            }
-        });
+
+                    @Override
+                    public void onPopupListClick(View contextView, int contextPosition, int position) {
+                        switch (position) {
+                            case 0: {// 批量预约 w 码
+                                batchBookingW();
+                                break;
+                            }
+                            case 1: {// 添加帐号
+                                startActivityForResult(new Intent(getContext(), AddAccountActivity.class), REQ_ADD_ACCOUNT);
+                                break;
+                            }
+                        }
+                    }
+                });
     }
 
     private void batchBookingW() {

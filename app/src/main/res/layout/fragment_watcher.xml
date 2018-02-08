@@ -6,98 +6,77 @@
 
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/tb"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary">
+                android:layout_marginRight="16dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp">
+                    android:layout_centerInParent="true"
+                    android:text="@string/home"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/home"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp" />
+                <ImageView
+                    android:id="@+id/iv_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_menu" />
+            </RelativeLayout>
 
-                    <ImageView
-                        android:id="@+id/iv_menu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:padding="4dp"
-                        android:src="@drawable/ic_menu" />
-                </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
 
-            </android.support.v7.widget.Toolbar>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <include layout="@layout/view_empty" />
+
+            <include layout="@layout/view_error" />
+
+            <include layout="@layout/view_loading" />
+
+            <!--content-->
             <FrameLayout
+                android:id="@+id/v_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <include layout="@layout/view_empty" />
-
-                <include layout="@layout/view_error" />
-
-                <include layout="@layout/view_loading" />
-
-                <!--content-->
-                <FrameLayout
-                    android:id="@+id/v_content"
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/srl"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <android.support.v4.widget.SwipeRefreshLayout
-                        android:id="@+id/srl"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                    </android.support.v7.widget.RecyclerView>
 
-                        </android.support.v7.widget.RecyclerView>
-
-                    </android.support.v4.widget.SwipeRefreshLayout>
-
-                </FrameLayout>
+                </android.support.v4.widget.SwipeRefreshLayout>
 
             </FrameLayout>
 
-        </LinearLayout>
+        </FrameLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="32dp"
-            android:layout_marginEnd="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="@color/colorPrimary"
-            app:elevation="6dp"
-            app:fabSize="normal"
-            app:layout_behavior="@string/bye_burger_float_behavior"
-            app:rippleColor="@color/colorGray" />
-    </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
 
 </layout>

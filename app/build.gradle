@@ -26,6 +26,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release// 使用签名
         }
+        debug {
+            signingConfig signingConfigs.release// 使用签名
+        }
     }
     dataBinding {
         enabled true
@@ -89,8 +92,6 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     // permission
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'// rxpermisssion
-
-    implementation 'com.github.githubwing:ByeBurger:1.2.3'
 
     // umeng
     implementation 'com.umeng.sdk:common:latest.integration'
