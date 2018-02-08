@@ -69,5 +69,7 @@
     <string name="batch_booking_w">批量预约w码</string>
     <string name="tips_no_account">请先添加账号</string>
     <string name="tips_batch_booking">共:%1$d, 预约成功:%2$d</string>
+    <string name="yesterday_income">昨日收益</string>
+    <string name="login_error">登录失败</string>
 
 </resources>

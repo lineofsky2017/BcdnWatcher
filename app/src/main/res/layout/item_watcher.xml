@@ -29,37 +29,31 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_toRightOf="@id/tv_area_code"
+            android:maxLength="20"
             android:text="12345678901"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
-        <FrameLayout
+        <ImageView
+            android:id="@+id/iv_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
+            android:paddingEnd="4dp"
+            android:paddingStart="12dp"
+            android:src="@drawable/ic_menu"
+            android:tint="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_status"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="登录失败"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:id="@+id/iv_menu"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
-                android:tint="@android:color/black"
-                android:src="@drawable/ic_menu"
-                android:layout_gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
-
-
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/iv_menu"
+            android:text="@string/login_error"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp" />
     </RelativeLayout>
 
 
@@ -102,45 +96,5 @@
         android:orientation="vertical">
 
     </LinearLayout>
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_booking_w"
-            android:layout_marginEnd="8dp"
-            android:text="@string/booking_w"
-            style="@style/customButton" />
-
-&lt;!&ndash;        <Button
-            android:id="@+id/btn_booking_s"
-            style="@style/customButton"
-            android:text="@string/booking_s" />&ndash;&gt;
-
-        <Button
-            android:id="@+id/btn_withdraw_history"
-            style="@style/customButton"
-            android:text="@string/withdraw_history" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_draw_money"
-            style="@style/customButton"
-            android:layout_marginEnd="8dp"
-            android:text="@string/draw_money" />
-
-        <Button
-            android:id="@+id/btn_bind_s"
-            style="@style/customButton"
-            android:text="@string/bind_s" />
-    </LinearLayout>-->
 
 </LinearLayout>

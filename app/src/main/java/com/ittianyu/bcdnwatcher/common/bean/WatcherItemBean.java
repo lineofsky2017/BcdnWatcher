@@ -11,6 +11,7 @@ public class WatcherItemBean implements Serializable {
     private List<MinerBean> miners;
     private double totalIncome;
     private double todayIncome;
+    private double yesterdayIncome;
     private String areaCode;
     private String phone;
     private List<IncomeBean.DataBean.HistoryBean> incomeHistory;
@@ -63,6 +64,14 @@ public class WatcherItemBean implements Serializable {
 
     public void setIncomeHistory(List<IncomeBean.DataBean.HistoryBean> incomeHistory) {
         this.incomeHistory = incomeHistory;
+    }
+
+    public double getYesterdayIncome() {
+        return yesterdayIncome;
+    }
+
+    public void setYesterdayIncome(double yesterdayIncome) {
+        this.yesterdayIncome = yesterdayIncome;
     }
 
     public boolean isLogin() {
