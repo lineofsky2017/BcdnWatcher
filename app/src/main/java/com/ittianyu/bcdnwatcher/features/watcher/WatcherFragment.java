@@ -569,7 +569,7 @@ public class WatcherFragment extends LceeFragment {
 //        Logger.d("x:" + location[0] + ", y:" + location[1]);
         itemMenu.showPopupListWindow(view, contextPosition, location[0] + view.getWidth() / 2, location[1],
                 Arrays.asList(getString(R.string.booking_w), getString(R.string.withdraw_history),
-                        getString(R.string.withdraw), getString(R.string.bind_s)),
+                        getString(R.string.withdraw), getString(R.string.bind_s), getString(R.string.delete)),
                 new PopupList.PopupListListener() {
                     @Override
                     public boolean showPopupList(View adapterView, View contextView, int contextPosition) {
@@ -608,6 +608,12 @@ public class WatcherFragment extends LceeFragment {
                 startActivityForResult(intent, REQ_BIND_S);
                 break;
             }
+            case 4: {// 删除
+                watcherAdapter.remove(contextPosition);
+                deleteAccount(contextPosition);
+                break;
+            }
+
         }
     }
 

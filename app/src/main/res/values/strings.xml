@@ -71,5 +71,6 @@
     <string name="tips_batch_booking">共:%1$d, 预约成功:%2$d</string>
     <string name="yesterday_income">昨日收益</string>
     <string name="login_error">登录失败</string>
+    <string name="delete">删除</string>
 
 </resources>
