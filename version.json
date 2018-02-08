@@ -1,5 +1,5 @@
 {
-  "last_version": 3,
+  "last_version": 2,
   "version_name": "1.0.1",
   "content": "1. 增加批量预约W码\n2. 昨日收益改为今日收益\n3. 按钮改为菜单样式\n4. 修复提现小数四舍五入导致超过余额的问题",
   "url": "https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/apk/bcdn_miner_v1.0.1.apk"
