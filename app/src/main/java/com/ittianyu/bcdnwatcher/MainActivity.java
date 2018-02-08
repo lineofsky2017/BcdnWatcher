@@ -20,6 +20,7 @@ import com.ittianyu.bcdnwatcher.features.watcher.WatcherFragment;
 import com.ittianyu.bcdnwatcher.features.wool.WoolFragment;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initData();
         initEvent();
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private void initPermission() {

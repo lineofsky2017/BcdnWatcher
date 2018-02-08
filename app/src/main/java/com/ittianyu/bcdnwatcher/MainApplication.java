@@ -8,6 +8,8 @@ import com.ittianyu.bcdnwatcher.common.repository.local.db.DBHelper;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 /**
  * Created by yu on 2016/11/24.
@@ -24,7 +26,9 @@ public class MainApplication extends Application {
         initLogger();
         initLeakCanary();
         initRepository();
+        initUmeng();
     }
+
 
 
     /**
@@ -53,6 +57,11 @@ public class MainApplication extends Application {
 
     private void initRepository() {
         DBHelper.getInstance().init(context);
+    }
+
+    private void initUmeng() {
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
+        MobclickAgent.setScenarioType(getContext(), MobclickAgent.EScenarioType.E_DUM_NORMAL);
     }
 
     public static Context getContext() {

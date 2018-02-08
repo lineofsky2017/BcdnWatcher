@@ -22,6 +22,7 @@ import com.ittianyu.bcdnwatcher.common.utils.DialogUtils;
 import com.ittianyu.bcdnwatcher.common.utils.LceeUtils;
 import com.ittianyu.bcdnwatcher.databinding.ActivityBindEthBinding;
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.Serializable;
 
@@ -46,6 +47,15 @@ public class BindEthActivity extends AppCompatActivity {
         initView();
         initData();
         initEvent();
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private void initView() {

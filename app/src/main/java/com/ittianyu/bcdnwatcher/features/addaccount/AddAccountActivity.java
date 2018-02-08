@@ -18,6 +18,7 @@ import com.ittianyu.bcdnwatcher.common.utils.DialogUtils;
 import com.ittianyu.bcdnwatcher.common.utils.EncryptionUtils;
 import com.ittianyu.bcdnwatcher.databinding.ActivityAddAccountBinding;
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by 86839 on 2018/1/28.
@@ -38,6 +39,15 @@ public class AddAccountActivity extends AppCompatActivity {
         initView();
         initData();
         initEvent();
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private void initView() {

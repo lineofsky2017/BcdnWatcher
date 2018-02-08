@@ -22,6 +22,7 @@ import com.ittianyu.bcdnwatcher.common.utils.CollectionUtils;
 import com.ittianyu.bcdnwatcher.common.utils.LceeUtils;
 import com.ittianyu.bcdnwatcher.databinding.ActivityWithdrawHistoryBinding;
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,6 +48,15 @@ public class WithdrawHistoryActivity extends LceeActivity {
         initData();
         initEvent();
         reload();
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private void initView() {

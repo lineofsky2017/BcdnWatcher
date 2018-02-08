@@ -79,6 +79,9 @@
      <init>(...);
 }
 
+# umeng
+-keep class com.umeng.commonsdk.** {*;}
+
 #beans
 -keep public class **.bean.** {*;}
 

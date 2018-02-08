@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import com.ittianyu.bcdnwatcher.R;
 import com.ittianyu.bcdnwatcher.common.bean.IncomeBean;
 import com.ittianyu.bcdnwatcher.databinding.ActivityIncomeHistoryBinding;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +35,15 @@ public class IncomeHistoryActivity extends AppCompatActivity {
         initView();
         initData();
         initEvent();
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private void initView() {

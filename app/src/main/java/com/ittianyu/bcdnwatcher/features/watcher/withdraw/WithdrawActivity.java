@@ -22,6 +22,7 @@ import com.ittianyu.bcdnwatcher.common.utils.DownTimer;
 import com.ittianyu.bcdnwatcher.common.utils.LceeUtils;
 import com.ittianyu.bcdnwatcher.databinding.ActivityWithdrawBinding;
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.Locale;
 
@@ -50,6 +51,15 @@ public class WithdrawActivity extends AppCompatActivity {
         initView();
         initData();
         initEvent();
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private void initView() {

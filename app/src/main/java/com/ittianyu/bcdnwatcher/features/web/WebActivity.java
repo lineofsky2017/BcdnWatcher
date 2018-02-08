@@ -13,6 +13,7 @@ import android.webkit.WebSettings;
 
 import com.ittianyu.bcdnwatcher.R;
 import com.ittianyu.bcdnwatcher.databinding.ActivityWebBinding;
+import com.umeng.analytics.MobclickAgent;
 
 
 public class WebActivity extends AppCompatActivity {
@@ -35,6 +36,14 @@ public class WebActivity extends AppCompatActivity {
         initEvent();
     }
 
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     private void initView() {
         // load website
