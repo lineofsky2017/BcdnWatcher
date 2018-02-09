@@ -3,7 +3,6 @@
 
 - 自动安装
 - 自带守护进程
-- 开机自动启动
 
 
 ## Linux 矿机安装教程 ##
@@ -37,35 +36,10 @@ echo "这里替换成你的挖矿码" > ~/opt/M_BerryMiner_ubuntu_v1_0/server/co
 挖矿码输入后（守护进程会自动重启矿机，无需手动做任何操作），等待 1 分钟左右，检查是否已经上线成功。
 
 
-## 开机启动 ##
-
-上面脚本里面没添加开机启动，因为不支持相对路径
-如果你是 root 用户登录的，则可以手动执行下面命令，来实现开机自动执行守护程序。
-
-非 root 用户没权限添加开机启动的
-
-同样需要区分系统来执行。
-
-#### Ubuntu ####
-```
-echo -e '#!/bin/sh\n  cd /root/opt/BDCN_sh\n nohup ./daemon.sh > /root/opt/BDCN_sh/nohup.out' > /root/opt/BDCN_sh/auto_startup.sh
-chmod +x /root/opt/BDCN_sh/auto_startup.sh
-chmod +x /etc/rc.local
-echo "/root/opt/BDCN_sh/auto_startup.sh" >> /etc/rc.local
-```
-
-#### Centos ####
-```
-echo -e '#!/bin/sh\n  cd /root/opt/BDCN_sh\n nohup ./daemon.sh > /root/opt/BDCN_sh/nohup.out' > /root/opt/BDCN_sh/auto_startup.sh
-chmod +x /root/opt/BDCN_sh/auto_startup.sh
-chmod +x /etc/rc.d/rc.local
-echo "/root/opt/BDCN_sh/auto_startup.sh" >> /etc/rc.d/rc.local
-```
-
 
 ## 手动启动守护程序 ##
 
-如果没有添加开启启动，在重启 linux 后，需要手动开启守护进程。只需要执行下面命令即可
+在重启 linux 后，需要手动开启守护进程。只需要执行下面命令即可
 
 ```
 cd ~/opt/BDCN_sh
