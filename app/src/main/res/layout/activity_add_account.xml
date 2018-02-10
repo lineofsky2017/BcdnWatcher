@@ -29,9 +29,9 @@
 
                 <ImageView
                     android:id="@+id/iv_back"
-                    android:src="@drawable/ic_back"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back" />
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -64,25 +64,33 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@={account.phone}"
             android:hint="手机号码"
             android:inputType="phone"
+            android:text="@={account.phone}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/et_area_code"
             app:layout_constraintTop_toBottomOf="@+id/tb" />
 
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="0dp"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_password"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:hint="密码"
-            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+            app:layout_constraintTop_toBottomOf="@+id/et_phone"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:hint="密码"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <EditText
             android:id="@+id/et_area_code"
@@ -90,8 +98,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:inputType="number"
             android:hint="86"
+            android:inputType="number"
             android:text="@={account.areaCode}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tb" />
@@ -105,7 +113,7 @@
             android:switchPadding="8dp"
             android:text="@string/use_md5_password"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_password" />
+            app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
     </android.support.constraint.ConstraintLayout>
 

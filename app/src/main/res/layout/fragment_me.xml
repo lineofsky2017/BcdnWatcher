@@ -101,5 +101,12 @@
             android:layout_marginTop="2dp"
             app:title="@string/about_us" />
 
+        <com.ittianyu.bcdnwatcher.common.view.SettingItem
+            android:id="@+id/si_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:title="@string/version" />
+
     </LinearLayout>
 </layout>

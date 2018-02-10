@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ittianyu.bcdnwatcher.BuildConfig;
 import com.ittianyu.bcdnwatcher.R;
 import com.ittianyu.bcdnwatcher.common.utils.ClipboardUtils;
 import com.ittianyu.bcdnwatcher.common.utils.DialogUtils;
@@ -36,13 +37,13 @@ public class MeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+        initEvent();
     }
 
     private void initView(View view) {
         bind = DataBindingUtil.bind(view);
 
-        initEvent();
-
+        bind.siVersion.setContent(BuildConfig.VERSION_NAME);
     }
 
     private void initEvent() {

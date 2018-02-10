@@ -38,6 +38,7 @@ import com.ittianyu.bcdnwatcher.common.bean.Status;
 import com.ittianyu.bcdnwatcher.common.bean.WatcherItemBean;
 import com.ittianyu.bcdnwatcher.common.utils.ClipboardUtils;
 import com.ittianyu.bcdnwatcher.common.utils.CollectionUtils;
+import com.ittianyu.bcdnwatcher.common.utils.DecimalUtils;
 import com.ittianyu.bcdnwatcher.common.utils.DialogUtils;
 import com.ittianyu.bcdnwatcher.common.utils.LceeUtils;
 import com.ittianyu.bcdnwatcher.common.view.PopupList;
@@ -66,7 +67,7 @@ public class WatcherFragment extends LceeFragment {
     private WatcherViewModel watcherViewModel;
     private WatcherAdapter watcherAdapter;
     private Dialog loadingDialog;
-    PopupList itemMenu;
+    private PopupList itemMenu;
 
     @Nullable
     @Override
@@ -88,6 +89,11 @@ public class WatcherFragment extends LceeFragment {
     private void initView(View view) {
         setLcee(bind.vContent, view.findViewById(R.id.v_error),
                 view.findViewById(R.id.v_loading), view.findViewById(R.id.v_empty));
+
+        // init srl
+        bind.srl.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, R.color.colorPrimary);
+
         // init rv
         bind.rv.setLayoutManager(new LinearLayoutManager(getContext()));
         watcherAdapter = new WatcherAdapter(new ArrayList<WatcherItemBean>(0));
@@ -249,6 +255,47 @@ public class WatcherFragment extends LceeFragment {
                 break;
             }
         }
+        updateTotalInfoView(list);
+    }
+
+    private void updateTotalInfoView(List<WatcherItemBean> list) {
+        int totalAccountCount = list.size();
+        int totalMinerCount = 0;
+        int onlineMinerCount = 0;
+        double totalIncomeToday = 0;
+        double totalIncomeYesterday = 0;
+        double totalBalance = 0;
+
+
+        for (WatcherItemBean item : list) {
+            // 计算矿机总数量和在线数量
+            List<WatcherItemBean.MinerBean> miners = item.getMiners();
+            if (CollectionUtils.isEmpty(miners))
+                continue;
+            for (WatcherItemBean.MinerBean miner: miners) {
+                totalMinerCount++;
+                if (miner.isOnline())
+                    onlineMinerCount++;
+            }
+
+            // 计算今日收入 和 昨日收入
+            totalIncomeToday += item.getTodayIncome();
+            totalIncomeYesterday += item.getYesterdayIncome();
+            // 计算总余额
+            totalBalance += item.getTotalIncome();
+        }
+
+        bind.tvTotalAccountCount.setText(getString(R.string.total_account_count) + totalAccountCount);
+        bind.tvTotalMinerCount.setText(getString(R.string.total_miner_count) + totalMinerCount);
+        bind.tvOnlineMinerCount.setText(getString(R.string.online_miner_count) + onlineMinerCount);
+
+        if (DecimalUtils.isZero(totalIncomeToday)) {// 无今日收益，显示昨日收益
+            bind.tvTotalIncomeToday.setText(getString(R.string.total_income_yesterday) + totalIncomeYesterday);
+        } else {// 显示今日收益
+            bind.tvTotalIncomeToday.setText(getString(R.string.total_income_today) + totalIncomeToday);
+        }
+
+        bind.tvTotalBalance.setText(getString(R.string.total_balance) + totalBalance);
     }
 
     private void updateEmptyView() {

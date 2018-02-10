@@ -235,7 +235,6 @@ public class PopupList {
     }
 
     private void initPopupWindow(LinearLayout contentView) {
-        mPopupWindowHeight = mPopupWindowHeight + mIndicatorHeight;
         mPopupWindow = new PopupWindow(contentView, mPopupWindowWidth, mPopupWindowHeight, true);
         mPopupWindow.setTouchable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -255,6 +254,7 @@ public class PopupList {
                 int height = getViewHeight(ll);
                 mPopupWindowHeight += height;
             }
+            mPopupWindowHeight += mIndicatorHeight;
         }
     }
 

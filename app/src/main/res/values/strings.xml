@@ -79,5 +79,12 @@
     <string name="copy_code">复制挖矿码</string>
     <string name="tips_copy_code_success">复制成功</string>
     <string name="tips_no_permission_external">没有读写权限</string>
+    <string name="total_balance">总余额:</string>
+    <string name="total_income_today">今日总收益:</string>
+    <string name="total_account_count">总账号:</string>
+    <string name="total_miner_count">总矿机:</string>
+    <string name="online_miner_count">在线矿机:</string>
+    <string name="total_income_yesterday">昨日总收益</string>
+    <string name="version">版本号</string>
 
 </resources>

@@ -12,10 +12,14 @@ import android.widget.TextView;
 import com.ittianyu.bcdnwatcher.R;
 
 public class SettingItem extends FrameLayout {
+    // data
     private String title;
+    private String content;
     private boolean showArrow;
+    // view
     private TextView tvTitle;
     private ImageView ivArrow;
+    private TextView tvContent;
 
 
     public SettingItem(Context context) {
@@ -39,11 +43,11 @@ public class SettingItem extends FrameLayout {
                 attrs, R.styleable.SettingItem, defStyle, 0);
 
         title = a.getString(R.styleable.SettingItem_title);
+        content = a.getString(R.styleable.SettingItem_content);
         showArrow = a.getBoolean(R.styleable.SettingItem_showArrow, true);
         a.recycle();
 
         initView();
-
     }
 
     private void initView() {
@@ -51,14 +55,20 @@ public class SettingItem extends FrameLayout {
         addView(view);
 
         tvTitle = view.findViewById(R.id.tv_title);
+        tvContent = view.findViewById(R.id.tv_content);
         ivArrow = view.findViewById(R.id.iv_arrow);
 
         setTitle(title);
+        setContent(content);
         setVisibility(showArrow ? VISIBLE : GONE);
     }
 
     public void setTitle(CharSequence text) {
         tvTitle.setText(text);
+    }
+
+    public void setContent(CharSequence text) {
+        tvContent.setText(text);
     }
 
     public void setArrowVisibility(int visibility) {

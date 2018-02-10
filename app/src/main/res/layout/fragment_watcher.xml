@@ -54,10 +54,83 @@
             <include layout="@layout/view_loading" />
 
             <!--content-->
-            <FrameLayout
+            <LinearLayout
                 android:id="@+id/v_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:paddingBottom="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_total_account_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:text="@string/total_account_count"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_miner_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:layout_toEndOf="@id/tv_total_account_count"
+                        android:text="@string/total_miner_count"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_online_miner_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/tv_total_miner_count"
+                        android:text="@string/online_miner_count"
+                        android:textColor="@android:color/holo_green_light"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_income"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_total_account_count"
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/tv_total_income_today"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/total_income_today"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_total_balance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/total_balance"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/colorGray" />
 
                 <android.support.v4.widget.SwipeRefreshLayout
                     android:id="@+id/srl"
@@ -73,7 +146,7 @@
 
                 </android.support.v4.widget.SwipeRefreshLayout>
 
-            </FrameLayout>
+            </LinearLayout>
 
         </FrameLayout>
 
