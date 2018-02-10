@@ -1,6 +1,6 @@
 {
-  "last_version": 3,
-  "version_name": "1.0.2",
-  "content": "1. 修改今日收益算法，今日无收益时，显示昨日收益\n2. 添加帐号入口移动到右上角菜单\n3. 子菜单增加 删除账号\n4. 增加意见反馈渠道\n5. 增加更新时下载提示",
-  "url": "https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/apk/bcdn_miner_v1.0.2.apk"
+  "last_version": 4,
+  "version_name": "1.0.3",
+  "content": "1. 修复点删除账号时崩溃问题\n2. 增加统计信息:总矿机、总在线、今日总收入、总余额\n3. 增加复制挖矿码\n4. 修复自动更新时，未允许存储权限 导致的崩溃问题",
+  "url": "https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/apk/bcdn_miner_v1.0.3.apk"
 }

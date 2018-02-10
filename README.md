@@ -15,6 +15,7 @@ BCDN 开源多账号监控管理软件
 6. 批量预约W码 （右上角菜单）
 7. 提币和记录查看
 8. 绑定挖矿码
+9. 复制挖矿码
 
 #### 待开发功能 ####
 1. 云监控，掉线通知
@@ -25,10 +26,10 @@ BCDN 开源多账号监控管理软件
 
 点击链接下载
 
-https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/apk/bcdn_miner_v1.0.2.apk
+https://github.com/ItTianYuStudio/BcdnWatcher/raw/master/apk/bcdn_miner_v1.0.3.apk
 
 或扫描二维码下载<br/>
-![](./apk/bcdn_miner_v1.0.2.png)
+![](./apk/bcdn_miner_v1.0.3.png)
 
 
 #### 截图 ####
