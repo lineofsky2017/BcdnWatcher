@@ -36,6 +36,7 @@ import com.ittianyu.bcdnwatcher.common.bean.Lcee;
 import com.ittianyu.bcdnwatcher.common.bean.ListStatus;
 import com.ittianyu.bcdnwatcher.common.bean.Status;
 import com.ittianyu.bcdnwatcher.common.bean.WatcherItemBean;
+import com.ittianyu.bcdnwatcher.common.utils.ClipboardUtils;
 import com.ittianyu.bcdnwatcher.common.utils.CollectionUtils;
 import com.ittianyu.bcdnwatcher.common.utils.DialogUtils;
 import com.ittianyu.bcdnwatcher.common.utils.LceeUtils;
@@ -304,7 +305,7 @@ public class WatcherFragment extends LceeFragment {
     }
 
 
-    private void deleteAccount(int position) {
+    private void deleteAccount(final int position) {
         String phone = watcherAdapter.getData().get(position).getPhone();
         AccountBean account = new AccountBean();
         account.setPhone(phone);
@@ -313,13 +314,13 @@ public class WatcherFragment extends LceeFragment {
             @Override
             public void onChanged(@Nullable Lcee<Object> lcee) {
                 LceeUtils.removeObservers(ldDeleteAccount, lcee, WatcherFragment.this);
-                updateDeleteView(lcee);
+                updateDeleteView(lcee, position);
             }
         });
     }
 
 
-    private void updateDeleteView(Lcee<Object> lcee) {
+    private void updateDeleteView(Lcee<Object> lcee, int position) {
         Logger.d(lcee);
         if (lcee == null || lcee.status != Status.Loading && loadingDialog != null) {
             loadingDialog.dismiss();
@@ -330,6 +331,7 @@ public class WatcherFragment extends LceeFragment {
         switch (lcee.status) {
             case Content: {
                 Toast.makeText(getContext(), R.string.tips_delete_account_success, Toast.LENGTH_SHORT).show();
+                watcherAdapter.remove(position);
                 break;
             }
             case Empty: {
@@ -475,7 +477,7 @@ public class WatcherFragment extends LceeFragment {
     private void bindMainMenu() {
         PopupList popupList = new PopupList(getContext());
         popupList.bind(bind.ivMenu, Arrays.asList(getString(R.string.batch_booking_w),
-                getString(R.string.add_account)),
+                getString(R.string.add_account), getString(R.string.copy_code_all)),
                 new PopupList.PopupListListener() {
                     @Override
                     public boolean showPopupList(View adapterView, View contextView, int contextPosition) {
@@ -491,6 +493,10 @@ public class WatcherFragment extends LceeFragment {
                             }
                             case 1: {// 添加帐号
                                 startActivityForResult(new Intent(getContext(), AddAccountActivity.class), REQ_ADD_ACCOUNT);
+                                break;
+                            }
+                            case 2: {// 复制所有挖矿码
+                                copyAllCode(watcherAdapter.getData());
                                 break;
                             }
                         }
@@ -567,7 +573,7 @@ public class WatcherFragment extends LceeFragment {
 //        Logger.d("x:" + location[0] + ", y:" + location[1]);
         itemMenu.showPopupListWindow(view, contextPosition, location[0] + view.getWidth() / 2, location[1],
                 Arrays.asList(getString(R.string.booking_w), getString(R.string.withdraw_history),
-                        getString(R.string.withdraw), getString(R.string.bind_s), getString(R.string.delete)),
+                        getString(R.string.withdraw), getString(R.string.bind_s), getString(R.string.copy_code), getString(R.string.delete)),
                 new PopupList.PopupListListener() {
                     @Override
                     public boolean showPopupList(View adapterView, View contextView, int contextPosition) {
@@ -606,13 +612,34 @@ public class WatcherFragment extends LceeFragment {
                 startActivityForResult(intent, REQ_BIND_S);
                 break;
             }
-            case 4: {// 删除
-                watcherAdapter.remove(contextPosition);
+            case 4: {// 复制挖矿码
+                copyAllCode(Arrays.asList(item));
+                break;
+            }
+            case 5: {// 删除
                 deleteAccount(contextPosition);
                 break;
             }
 
         }
+    }
+
+
+    private void copyAllCode(List<WatcherItemBean> items) {
+        ClipboardUtils.copyText(getContext(), "code", getAllCode(items));
+        Toast.makeText(getContext(), R.string.tips_copy_code_success, Toast.LENGTH_SHORT).show();
+    }
+
+    private String getAllCode(List<WatcherItemBean> items) {
+        StringBuilder code = new StringBuilder();
+        for (WatcherItemBean item : items) {
+            if (CollectionUtils.isEmpty(item.getMiners()))
+                continue;
+            for (WatcherItemBean.MinerBean miner : item.getMiners()) {
+                code.append(miner.getCode() + "\n");
+            }
+        }
+        return code.toString();
     }
 
 }

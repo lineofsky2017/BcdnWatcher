@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -29,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -215,36 +217,105 @@ public class PopupList {
             return;
         }
         if (mPopupWindow == null || mPopupListListener instanceof AdapterPopupListListener) {
-            LinearLayout contentView = new LinearLayout(mContext);
-            contentView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            contentView.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout contentView = createRootView();
+
+            List<LinearLayout> list = addItemsView(contentView);
+
+            addIndicatorView(contentView);
+            getIndicatorViewSize();
+
+            getPopupWindowWidth(list);
+            getPopupWindowHeight(list);
+
+            initPopupWindow(contentView);
+        }
+
+        initIndicatorView();
+        showPopupWindow();
+    }
+
+    private void initPopupWindow(LinearLayout contentView) {
+        mPopupWindowHeight = mPopupWindowHeight + mIndicatorHeight;
+        mPopupWindow = new PopupWindow(contentView, mPopupWindowWidth, mPopupWindowHeight, true);
+        mPopupWindow.setTouchable(true);
+        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+    }
+
+    @NonNull
+    private LinearLayout createRootView() {
+        LinearLayout contentView = new LinearLayout(mContext);
+        contentView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        contentView.setOrientation(LinearLayout.VERTICAL);
+        return contentView;
+    }
+
+    private void getPopupWindowHeight(List<LinearLayout> list) {
+        if (mPopupWindowHeight == 0) {
+            for (LinearLayout ll: list) {
+                int height = getViewHeight(ll);
+                mPopupWindowHeight += height;
+            }
+        }
+    }
+
+    private void getIndicatorViewSize() {
+        if (mIndicatorView != null && mIndicatorWidth == 0) {
+            if (mIndicatorView.getLayoutParams().width > 0) {
+                mIndicatorWidth = mIndicatorView.getLayoutParams().width;
+            } else {
+                mIndicatorWidth = getViewWidth(mIndicatorView);
+            }
+        }
+        if (mIndicatorView != null && mIndicatorHeight == 0) {
+            if (mIndicatorView.getLayoutParams().height > 0) {
+                mIndicatorHeight = mIndicatorView.getLayoutParams().height;
+            } else {
+                mIndicatorHeight = getViewHeight(mIndicatorView);
+            }
+        }
+    }
+
+    private void getPopupWindowWidth(List<LinearLayout> list) {
+        if (mPopupWindowWidth == 0) {
+            for (LinearLayout ll: list) {
+                int width = getViewWidth(ll);
+                if (width > mPopupWindowWidth)
+                    mPopupWindowWidth = width;
+            }
+        }
+    }
+
+    @NonNull
+    private List<LinearLayout> addItemsView(LinearLayout contentView) {
+        int maxItemsPerLine = 3;
+        int count = mPopupItemList.size() / maxItemsPerLine;
+        if (mPopupItemList.size() % maxItemsPerLine > 0)
+            count++;
+
+        List<LinearLayout> list = new ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
             LinearLayout popupListContainer = new LinearLayout(mContext);
-            popupListContainer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.topMargin = 1;
+            popupListContainer.setLayoutParams(layoutParams);
             popupListContainer.setOrientation(LinearLayout.HORIZONTAL);
             popupListContainer.setBackgroundDrawable(mCornerBackground);
             contentView.addView(popupListContainer);
-            if (mIndicatorView != null) {
-                LinearLayout.LayoutParams layoutParams;
-                if (mIndicatorView.getLayoutParams() == null) {
-                    layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                } else {
-                    layoutParams = (LinearLayout.LayoutParams) mIndicatorView.getLayoutParams();
+            list.add(popupListContainer);
+
+            for (int j = 0; j < maxItemsPerLine; j++) {
+                int index = i * maxItemsPerLine + j;
+                if (index >= mPopupItemList.size()) {
+                    break;
                 }
-                layoutParams.gravity = Gravity.CENTER;
-                mIndicatorView.setLayoutParams(layoutParams);
-                ViewParent viewParent = mIndicatorView.getParent();
-                if (viewParent instanceof ViewGroup) {
-                    ((ViewGroup) viewParent).removeView(mIndicatorView);
-                }
-                contentView.addView(mIndicatorView);
-            }
-            for (int i = 0; i < mPopupItemList.size(); i++) {
+
                 TextView textView = new TextView(mContext);
                 textView.setTextColor(mTextColorStateList);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
                 textView.setPadding(mTextPaddingLeft, mTextPaddingTop, mTextPaddingRight, mTextPaddingBottom);
                 textView.setClickable(true);
-                final int finalI = i;
+                final int finalI = index;
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -256,13 +327,14 @@ public class PopupList {
                 });
                 if (mPopupListListener instanceof AdapterPopupListListener) {
                     AdapterPopupListListener adapterPopupListListener = (AdapterPopupListListener) mPopupListListener;
-                    textView.setText(adapterPopupListListener.formatText(mAdapterView, mContextView, mContextPosition, i, mPopupItemList.get(i)));
+                    textView.setText(adapterPopupListListener.formatText(mAdapterView, mContextView,
+                            mContextPosition, index, mPopupItemList.get(index)));
                 } else {
-                    textView.setText(mPopupItemList.get(i));
+                    textView.setText(mPopupItemList.get(index));
                 }
-                if (mPopupItemList.size() > 1 && i == 0) {
+                if (mPopupItemList.size() > 1 && index == 0) {
                     textView.setBackgroundDrawable(mLeftItemBackground);
-                } else if (mPopupItemList.size() > 1 && i == mPopupItemList.size() - 1) {
+                } else if (mPopupItemList.size() > 1 && index == mPopupItemList.size() - 1) {
                     textView.setBackgroundDrawable(mRightItemBackground);
                 } else if (mPopupItemList.size() == 1) {
                     textView.setBackgroundDrawable(mCornerItemBackground);
@@ -270,39 +342,69 @@ public class PopupList {
                     textView.setBackgroundDrawable(getCenterItemBackground());
                 }
                 popupListContainer.addView(textView);
-                if (mPopupItemList.size() > 1 && i != mPopupItemList.size() - 1) {
-                    View divider = new View(mContext);
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mDividerWidth, mDividerHeight);
-                    layoutParams.gravity = Gravity.CENTER;
-                    divider.setLayoutParams(layoutParams);
-                    divider.setBackgroundColor(mDividerColor);
-                    popupListContainer.addView(divider);
-                }
             }
-            if (mPopupWindowWidth == 0) {
-                mPopupWindowWidth = getViewWidth(popupListContainer);
-            }
-            if (mIndicatorView != null && mIndicatorWidth == 0) {
-                if (mIndicatorView.getLayoutParams().width > 0) {
-                    mIndicatorWidth = mIndicatorView.getLayoutParams().width;
-                } else {
-                    mIndicatorWidth = getViewWidth(mIndicatorView);
-                }
-            }
-            if (mIndicatorView != null && mIndicatorHeight == 0) {
-                if (mIndicatorView.getLayoutParams().height > 0) {
-                    mIndicatorHeight = mIndicatorView.getLayoutParams().height;
-                } else {
-                    mIndicatorHeight = getViewHeight(mIndicatorView);
-                }
-            }
-            if (mPopupWindowHeight == 0) {
-                mPopupWindowHeight = getViewHeight(popupListContainer) + mIndicatorHeight;
-            }
-            mPopupWindow = new PopupWindow(contentView, mPopupWindowWidth, mPopupWindowHeight, true);
-            mPopupWindow.setTouchable(true);
-            mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         }
+
+        /*LinearLayout popupListContainer = new LinearLayout(mContext);
+        popupListContainer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        popupListContainer.setOrientation(LinearLayout.HORIZONTAL);
+        popupListContainer.setBackgroundDrawable(mCornerBackground);
+        contentView.addView(popupListContainer);
+
+
+        for (int i = 0; i < mPopupItemList.size(); i++) {
+            TextView textView = new TextView(mContext);
+            textView.setTextColor(mTextColorStateList);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
+            textView.setPadding(mTextPaddingLeft, mTextPaddingTop, mTextPaddingRight, mTextPaddingBottom);
+            textView.setClickable(true);
+            final int finalI = i;
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mPopupListListener != null) {
+                        mPopupListListener.onPopupListClick(mContextView, mContextPosition, finalI);
+                        hidePopupListWindow();
+                    }
+                }
+            });
+            if (mPopupListListener instanceof AdapterPopupListListener) {
+                AdapterPopupListListener adapterPopupListListener = (AdapterPopupListListener) mPopupListListener;
+                textView.setText(adapterPopupListListener.formatText(mAdapterView, mContextView, mContextPosition, i, mPopupItemList.get(i)));
+            } else {
+                textView.setText(mPopupItemList.get(i));
+            }
+            if (mPopupItemList.size() > 1 && i == 0) {
+                textView.setBackgroundDrawable(mLeftItemBackground);
+            } else if (mPopupItemList.size() > 1 && i == mPopupItemList.size() - 1) {
+                textView.setBackgroundDrawable(mRightItemBackground);
+            } else if (mPopupItemList.size() == 1) {
+                textView.setBackgroundDrawable(mCornerItemBackground);
+            } else {
+                textView.setBackgroundDrawable(getCenterItemBackground());
+            }
+            popupListContainer.addView(textView);
+            if (mPopupItemList.size() > 1 && i != mPopupItemList.size() - 1) {
+                View divider = new View(mContext);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mDividerWidth, mDividerHeight);
+                layoutParams.gravity = Gravity.CENTER;
+                divider.setLayoutParams(layoutParams);
+                divider.setBackgroundColor(mDividerColor);
+                popupListContainer.addView(divider);
+            }
+        }*/
+        return list;
+    }
+
+    private void showPopupWindow() {
+        if (!mPopupWindow.isShowing()) {
+            mPopupWindow.showAtLocation(mAnchorView, Gravity.CENTER,
+                    (int) mRawX - mScreenWidth / 2,
+                    (int) mRawY - mScreenHeight / 2 - mPopupWindowHeight + mIndicatorHeight);
+        }
+    }
+
+    private void initIndicatorView() {
         if (mIndicatorView != null) {
             float marginLeftScreenEdge = mRawX;
             float marginRightScreenEdge = mScreenWidth - mRawX;
@@ -323,10 +425,23 @@ public class PopupList {
                 mIndicatorView.setTranslationX(0);
             }
         }
-        if (!mPopupWindow.isShowing()) {
-            mPopupWindow.showAtLocation(mAnchorView, Gravity.CENTER,
-                    (int) mRawX - mScreenWidth / 2,
-                    (int) mRawY - mScreenHeight / 2 - mPopupWindowHeight + mIndicatorHeight);
+    }
+
+    private void addIndicatorView(LinearLayout contentView) {
+        if (mIndicatorView != null) {
+            LinearLayout.LayoutParams layoutParams;
+            if (mIndicatorView.getLayoutParams() == null) {
+                layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            } else {
+                layoutParams = (LinearLayout.LayoutParams) mIndicatorView.getLayoutParams();
+            }
+            layoutParams.gravity = Gravity.CENTER;
+            mIndicatorView.setLayoutParams(layoutParams);
+            ViewParent viewParent = mIndicatorView.getParent();
+            if (viewParent instanceof ViewGroup) {
+                ((ViewGroup) viewParent).removeView(mIndicatorView);
+            }
+            contentView.addView(mIndicatorView);
         }
     }
 
