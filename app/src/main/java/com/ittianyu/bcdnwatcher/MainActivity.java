@@ -30,6 +30,7 @@ public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding bind;
     private MainViewModel mainViewModel;
+    private boolean granted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void accept(Boolean granted) throws Exception {
 //                        Logger.d(granted);
+                        MainActivity.this.granted = granted;
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -102,7 +104,7 @@ public class MainActivity extends BaseActivity {
                 versionLd.removeObservers(MainActivity.this);
                 if (version.getLastVersion() > BuildConfig.VERSION_CODE && !TextUtils.isEmpty(version.getUrl())) {
                     UpdateUtils.showUpdateDialog(MainActivity.this, getString(R.string.tips_update_title),
-                            version.getContent(), version.getUrl());
+                            version.getContent(), version.getUrl(), granted);
                 }
             }
         });

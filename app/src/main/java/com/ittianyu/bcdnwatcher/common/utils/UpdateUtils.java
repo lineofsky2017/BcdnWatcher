@@ -12,29 +12,45 @@ import android.widget.Toast;
 
 import com.ittianyu.bcdnwatcher.R;
 
+import java.io.File;
+
 /**
  * Created by 86839 on 2018/1/31.
  */
 
 public class UpdateUtils {
+    private static final String FILE_NAME = "BcdnWatcher.apk";
 
-    public static void showUpdateDialog(final Context context, String title, String content, final String url) {
+
+    public static void showUpdateDialog(final Context context, String title, String content, final String url, final boolean granted) {
         final Context appContext = context.getApplicationContext();
         DialogUtils.showOkCancelDialog(context, title, content, false, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                Toast.makeText(appContext, R.string.tips_download_start, Toast.LENGTH_SHORT).show();
-                startDownload(appContext, url);
+                if (granted) {
+                    Toast.makeText(appContext, R.string.tips_download_start, Toast.LENGTH_SHORT).show();
+                    startDownload(appContext, url);
+                } else {
+                    Toast.makeText(appContext, R.string.tips_no_permission_external, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
     private static BroadcastReceiver startDownload(Context context, String url) {
+        // delete old download file
+        try {
+            File file = new File(Environment.DIRECTORY_DOWNLOADS, FILE_NAME);
+            file.delete();
+        } catch (Exception e) {
+        }
+
+        // download
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"BcdnWatcher.apk");//保存到公共图片文件夹
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,FILE_NAME);//保存到公共图片文件夹
         request.allowScanningByMediaScanner();//允许被扫描
         request.setVisibleInDownloadsUi(true);//通知栏一直显示
 //        request.setTitle("文件下载");
