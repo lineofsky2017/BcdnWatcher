@@ -17,14 +17,14 @@
 #### Ubuntu ####
 
 ```
-curl -o- https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerInstall/install_ubuntu.sh | bash
+curl -o- https://raw.githubusercontent.com/lineofsky2017/BcdnWatcher/master/minerInstall/install_ubuntu.sh | bash
 ```
 
 #### Centos ####
 
 
 ```
-curl -o- https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerInstall/install_centos.sh | bash
+curl -o- https://raw.githubusercontent.com/lineofsky2017/BcdnWatcher/master/minerInstall/install_centos.sh | bash
 ```
 
 ## 输入挖矿码 ##
@@ -56,9 +56,4 @@ nohup ./daemon.sh &
 
 - 如果是云服务器，直接把 帐号密码发我，我连接后帮忙安装。
 - 如果是虚拟机，请下载好 TeamViewer, [点这里下载](https://download.teamviewer.com/download/TeamViewer_Setup.exe)。 运行后，把远程连接的 id 和 密码发我，我代为远程操作。
-
-
-#### 联系方式 ####
-- qq 1125316526 
-- 微信 ittianyu
 
