@@ -25,7 +25,7 @@ chmod 755 ./bin/bcdn_server
 
 # 守护程序
 cd ~/opt/BDCN_sh
-wget https://raw.githubusercontent.com/ItTianYuStudio/BcdnWatcher/master/minerInstall/daemon.sh
+wget https://raw.githubusercontent.com/lineofsky2017/BcdnWatcher/master/minerInstall/daemon.sh
 chmod +x daemon.sh
 
 # 开机自动启动脚本
